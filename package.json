@@ -1,6 +1,6 @@
 {
   "name": "palbank-tms",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "PalBank TMS - Logiciel de gestion de transport",
   "main": "main.js",
   "scripts": {
@@ -27,8 +27,8 @@
   ],
   "publish": {
     "provider": "github",
-    "owner": "TON_COMPTE_GITHUB",
-    "repo": "palbank-tms"
+    "owner": "palbanktms-ctrl",
+    "repo": "PalBank-TMS"
   },
   "win": {
     "target": "nsis",
@@ -44,4 +44,5 @@
     "target": "dmg",
     "icon": "icon.png"
   }
+}
 }

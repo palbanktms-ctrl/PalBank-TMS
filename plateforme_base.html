@@ -825,7 +825,8 @@
                 <label for="type-vehicule-tournee">📦 Type de Véhicule</label>
                 <select id="type-vehicule-tournee">
                     <option value="Port 19T">Porteur 19T</option>
-                    <option value="Port 16T">Porteur 16T</option>
+ <option value="Port 26T">Porteur 26T</option>                 
+    <option value="Port 16T">Porteur 16T</option>
                     <option value="Port 14T">Porteur 14T</option>
                     <option value="Ens 38T">Ensemble 38T</option>
                     <option value="Ens 40T">Ensemble 40T</option>
@@ -980,7 +981,10 @@
             <div class="form-group-platform">
                 <label>Type:</label>
                 <select id="type-vehicule">
-                    <option value="Camion frigorifique">Camion frigorifique</option>
+<option value="Tracteur">Tracteur</option>
+    <option value="Porteur">Porteur</option>
+    <option value="Remorque">Remorque</option>                
+    <option value="Camion frigorifique">Camion frigorifique</option>
                     <option value="Camion plateau">Camion plateau</option>
                     <option value="Camion benne">Camion benne</option>
                     <option value="Utilitaire">Utilitaire</option>
@@ -1323,7 +1327,27 @@ if (typeof electronAPI !== 'undefined') {
                     transporteur: 'Transports Dupont',
                     permis: 'C+E',
                     statut: 'Disponible',
-                    absences: [
+documents: {
+            permis: {
+                numero: "123456789",
+                dateValidite: "2025-12-31",
+                dateDelivrance: "2020-01-15",
+                categorie: "C+E"
+            },
+            fco: {
+                numero: "FCO-789456",
+                dateValidite: "2025-06-30", 
+                dateDelivrance: "2023-01-20",
+                organisme: "Organisme FCO"
+            },
+            carteConducteur: {
+                numero: "CC-123456",
+                dateValidite: "2025-09-15",
+                dateDelivrance: "2022-03-10"
+            }
+        },
+            
+        absences: [
                         {
                             id: 1,
                             type: 'Congés',
@@ -1687,7 +1711,14 @@ function init() {
             if (typeof mettreAJourStatutsChauffeurs === 'function') {
                 mettreAJourStatutsChauffeurs();
             }
-        }
+    // Démarrer le système d'alertes
+    setTimeout(afficherAlertesDocuments, 2000);
+setTimeout(afficherAlertesControles, 3000); 
+    
+    // Vérifier les alertes toutes les semaines
+    setInterval(afficherAlertesDocuments, 7 * 24 * 60 * 60 * 1000);
+setInterval(afficherAlertesControles, 7 * 24 * 60 * 60 * 1000);
+}
 
         function aAcces(nomPage) {
             const user = donnees.utilisateurActuel;
@@ -2173,7 +2204,8 @@ function genererPageVehicules() {
                         <div class="btn btn-sm" onclick="montrerEntretiens(${vehicule.id})">📋 Entretiens</div>
                         <div class="btn btn-sm" onclick="montrerControles(${vehicule.id})">⚙️ Contrôles</div>
                         <div class="btn btn-sm" onclick="montrerDocuments(${vehicule.id})">📄 Documents</div>
-                    </div>
+<button class="btn btn-sm btn-danger" onclick="supprimerVehicule(${vehicule.id})" style="margin-top: 10px; width: 100%;">🗑️ Supprimer le véhicule</button>         
+           </div>
                 </div>
 
                 <!-- SECTION ENTRETIENS -->
@@ -2194,16 +2226,33 @@ function genererPageVehicules() {
                 <!-- SECTION CONTRÔLES -->
                 <div class="section-controle" style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px; display:none;">
                     <h4>📋 Planning des Contrôles</h4>
-                    <div class="grid-3" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px;">
-                        ${vehicule.controles.map(controle => `
-                            <div class="card" style="padding: 10px; text-align: center;">
-                                <div style="font-size: 0.9em; font-weight: bold;">${controle.type}</div>
-                                <div style="font-size: 0.8em; color: #059669;">Dernier: ${controle.date}</div>
-                                <div style="font-size: 0.8em; color: #d97706;">Prochain: ${controle.dateProchaine}</div>
-                                <div style="font-size: 0.7em; padding: 2px 6px; background: #dcfce7; color: #166534; border-radius: 8px; margin-top: 5px;">${controle.statut}</div>
-                            </div>
-                        `).join('')}
+<div class="grid-3" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px;">
+    ${vehicule.controles.map(controle => {
+        const aujourdhui = new Date();
+        const dateProchaine = new Date(controle.dateProchaine);
+        const joursRestants = Math.ceil((dateProchaine - aujourdhui) / (1000 * 60 * 60 * 24));
+        const estEnAlerte = joursRestants <= 30;
+        
+        return `
+            <div class="card" style="padding: 10px; text-align: center; ${estEnAlerte ? 'background: #fef3c7; border: 2px solid #f59e0b;' : ''}">
+                <div style="font-size: 0.9em; font-weight: bold;">${controle.type}</div>
+<div style="font-size: 0.8em; color: #059669;">Dernier: ${formaterDateFR(controle.date)}</div>
+<div style="font-size: 0.8em; color: #d97706;">Prochain: ${formaterDateFR(controle.dateProchaine)}</div>
+                ${controle.dateProchaine ? `
+                    <div style="font-size: 0.7em; margin-top: 3px;">
+                        ⏳ ${joursRestants} jours
                     </div>
+                ` : ''}
+                <div style="font-size: 0.7em; padding: 2px 6px; 
+                    background: ${estEnAlerte ? '#fef3c7' : '#dcfce7'}; 
+                    color: ${estEnAlerte ? '#92400e' : '#166534'}; 
+                    border-radius: 8px; margin-top: 5px;">
+                    ${estEnAlerte ? '⚠️ Bientôt' : '✅ OK'}
+                </div>
+            </div>
+        `;
+    }).join('')}
+</div>
                     <button class="btn btn-sm" style="margin-top: 10px;" onclick="ajouterControle(${vehicule.id})">➕ Nouveau contrôle</button>
                 </div>
 
@@ -2262,23 +2311,46 @@ function genererPageChauffeurs() {
 
         ${donnees.chauffeurs.map(chauffeur => `
             <div class="card">
-                <div style="display: flex; justify-content: space-between; align-items: start;">
-                    <div style="flex: 1;">
-                        <h3>${chauffeur.prenom} ${chauffeur.nom}</h3>
-                        <p><strong>Transporteur:</strong> ${chauffeur.transporteur}</p>
-                        <p>
-                            <strong>Permis:</strong> ${chauffeur.permis} | 
-                            <strong>Statut:</strong> 
-                            <span class="statut-badge ${chauffeur.statut === 'Disponible' ? 'statut-en-route' : 'statut-en-attente'}">
-                                ${chauffeur.statut}
-                            </span>
-                        </p>
-                    </div>
-                    <div style="text-align: right;">
-                        <button class="btn btn-sm" onclick="gererAbsences(${chauffeur.id})">📅 Gérer les absences</button>
-                        <button class="btn btn-sm" onclick="demanderRepos(${chauffeur.id})">⏸️ Demander un repos</button>
-                    </div>
-                </div>
+<div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 20px;">
+    <div style="flex: 1;">
+        <h3>${chauffeur.prenom} ${chauffeur.nom}</h3>
+        <p><strong>Transporteur:</strong> ${chauffeur.transporteur}</p>
+        <p>
+            <strong>Permis:</strong> ${chauffeur.permis} | 
+            <strong>Statut:</strong> 
+            <span class="statut-badge ${chauffeur.statut === 'Disponible' ? 'statut-en-route' : 'statut-en-attente'}">
+                ${chauffeur.statut}
+            </span>
+        </p>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 5px; min-width: 200px;">
+        <button class="btn btn-sm" onclick="gererAbsences(${chauffeur.id})">📅 Gérer les absences</button>
+        <button class="btn btn-sm" onclick="demanderRepos(${chauffeur.id})">⏸️ Demander un repos</button>
+        <button class="btn btn-sm btn-danger" onclick="supprimerChauffeur(${chauffeur.id})">🗑️ Supprimer</button>
+    </div>
+</div>
+
+ <!-- SECTION DOCUMENTS -->
+<div style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+    <h4>📄 Documents et Validités</h4>
+    ${
+        chauffeur.documents 
+        ? `
+            <div style="font-size: 0.9em;">
+<div><strong>Permis:</strong> ${chauffeur.documents.permis?.categorie || 'N/A'} 
+- Valide jusqu'au ${formaterDateFR(chauffeur.documents.permis?.dateValidite)}</div>
+<div><strong>FCO:</strong> ${chauffeur.documents.fco?.numero || 'N/A'} 
+- Valide jusqu'au ${formaterDateFR(chauffeur.documents.fco?.dateValidite)}</div>
+<div><strong>Carte conducteur:</strong> ${chauffeur.documents.carteConducteur?.numero || 'N/A'} 
+- Valide jusqu'au ${formaterDateFR(chauffeur.documents.carteConducteur?.dateValidite)}</div>
+            </div>
+            <button class="btn btn-sm" onclick="modifierDocuments(${chauffeur.id})" style="margin-top: 10px;">
+                ✏️ Modifier les documents
+            </button>
+        `
+        : '<p style="color: #6b7280; font-style: italic;">Aucun document enregistré</p>'
+    }
+</div>         
 
                 <!-- SECTION ABSENCES PLANIFIÉES -->
                 <div style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
@@ -2571,6 +2643,65 @@ function genererBordereauChargementPourChauffeur(livraisonId) {
             </select>
         </div>
         
+<!-- NOUVEAUX CHAMPS POUR LES DOCUMENTS -->
+        <div class="document-section">
+            <h4>📄 Documents - Permis de conduire</h4>
+            <div class="form-group">
+                <label>Numéro du permis:</label>
+                <input type="text" id="numero-permis" placeholder="123456789">
+            </div>
+            <div class="form-group">
+                <label>Date de validité:</label>
+                <input type="date" id="date-validite-permis">
+            </div>
+            <div class="form-group">
+                <label>Date de délivrance:</label>
+                <input type="date" id="date-delivrance-permis">
+            </div>
+        </div>
+
+        <div class="document-section">
+            <h4>📋 FCO (Formation Conducteur Routier)</h4>
+            <div class="form-group">
+                <label>Numéro FCO:</label>
+                <input type="text" id="numero-fco" placeholder="FCO-789456">
+            </div>
+            <div class="form-group">
+                <label>Date de validité FCO:</label>
+                <input type="date" id="date-validite-fco">
+            </div>
+            <div class="form-group">
+                <label>Organisme de formation:</label>
+                <input type="text" id="organisme-fco" placeholder="Organisme agréé">
+            </div>
+        </div>
+
+        <div class="document-section">
+            <h4>🪪 Carte Conducteur</h4>
+            <div class="form-group">
+                <label>Numéro carte conducteur:</label>
+                <input type="text" id="numero-carte-conducteur" placeholder="CC-123456">
+            </div>
+            <div class="form-group">
+                <label>Date de validité carte:</label>
+                <input type="date" id="date-validite-carte">
+            </div>
+        </div>
+        
+        <div class="form-group">
+            <label>Transporteur:</label>
+            <select id="transporteur-chauffeur">
+                <option value="2">Transports Dupont</option>
+            </select>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-success" onclick="creerChauffeur()">✅ Créer le Chauffeur</button>
+            <button class="btn" onclick="cacherModal('modal-chauffeur')">❌ Annuler</button>
+        </div>
+    </div>
+</div>
+
         <div class="form-group">
             <label>Transporteur:</label>
             <select id="transporteur-chauffeur">
@@ -3218,22 +3349,22 @@ function imprimerLettreVoiture(livraisonId) {
                 statut: 'Disponible',
                 dateMiseEnService: document.getElementById('date-vehicule').value || new Date().toISOString().split('T')[0],
                 entretiens: [],
-                controles: [
-                    {
-                        id: 1,
-                        type: 'Contrôle technique',
-                        date: '',
-                        dateProchaine: '',
-                        statut: 'À programmer'
-                    },
-                    {
-                        id: 2,
-                        type: 'Tachygraphe',
-                        date: '',
-                        dateProchaine: '',
-                        statut: 'À programmer'
-                    },
-                    {
+controles: [
+    {
+        id: 1,
+        type: 'Contrôle technique',
+        date: '2024-01-10',
+        dateProchaine: '2025-01-10', 
+        statut: 'Valide'
+    },
+    {
+        id: 2,
+        type: 'Tachygraphe', 
+        date: '2024-03-15',
+        dateProchaine: '2025-03-15',
+        statut: 'Valide'
+ },
+    {
                         id: 3,
                         type: 'Hayon',
                         date: '',
@@ -3369,6 +3500,26 @@ function creerChauffeur() {
         transporteur: transporteur.raisonSociale,
         permis: permis,
         statut: 'Disponible',
+        // NOUVEAUX DOCUMENTS AVEC DATES DE VALIDITÉ
+        documents: {
+            permis: {
+                numero: document.getElementById('numero-permis').value,
+                dateValidite: document.getElementById('date-validite-permis').value,
+                dateDelivrance: document.getElementById('date-delivrance-permis').value,
+                categorie: permis
+            },
+            fco: {
+                numero: document.getElementById('numero-fco').value,
+                dateValidite: document.getElementById('date-validite-fco').value,
+                dateDelivrance: new Date().toISOString().split('T')[0],
+                organisme: document.getElementById('organisme-fco').value
+            },
+            carteConducteur: {
+                numero: document.getElementById('numero-carte-conducteur').value,
+                dateValidite: document.getElementById('date-validite-carte').value,
+                dateDelivrance: new Date().toISOString().split('T')[0]
+            }
+        },
         absences: [],
         demandesEnCours: []
     };
@@ -3377,6 +3528,9 @@ function creerChauffeur() {
     cacherModal('modal-chauffeur');
     afficherPage('chauffeurs');
     alert('✅ Chauffeur créé avec succès !');
+    
+    // Vérifier immédiatement les alertes
+    verifierAlertesDocuments();
 }
 function verifierAbsencesProchaines() {
     const dansUneSemaine = new Date();
@@ -4038,6 +4192,251 @@ function assignerNumeroQuai(livraisonId) {
         }
     }
 }
+function supprimerChauffeur(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce chauffeur ?')) {
+        donnees.chauffeurs = donnees.chauffeurs.filter(c => c.id !== id);
+        afficherPage('chauffeurs');
+    }
+}
+
+function supprimerVehicule(id) {
+    if (confirm('Êtes-vous sûr de vouloir supprimer ce véhicule ?')) {
+        donnees.vehicules = donnees.vehicules.filter(v => v.id !== id);
+        afficherPage('vehicules');
+    }
+}
+// SYSTÈME DE GESTION DES ALERTES DOCUMENTS
+function verifierAlertesDocuments() {
+    const aujourdhui = new Date();
+    const dansDeuxMois = new Date();
+    dansDeuxMois.setMonth(aujourdhui.getMonth() + 2);
+    
+    const alertes = [];
+    
+    donnees.chauffeurs.forEach(chauffeur => {
+        if (chauffeur.documents) {
+            // Vérifier le permis
+            if (chauffeur.documents.permis && chauffeur.documents.permis.dateValidite) {
+                const dateValiditePermis = new Date(chauffeur.documents.permis.dateValidite);
+                if (dateValiditePermis <= dansDeuxMois && dateValiditePermis >= aujourdhui) {
+                    const joursRestants = Math.ceil((dateValiditePermis - aujourdhui) / (1000 * 60 * 60 * 24));
+                    alertes.push({
+                        type: '⚠️ PERMIS',
+                        chauffeur: `${chauffeur.prenom} ${chauffeur.nom}`,
+                        document: 'Permis de conduire',
+                        dateExpiration: chauffeur.documents.permis.dateValidite,
+                        joursRestants: joursRestants,
+                        urgence: joursRestants <= 30 ? 'HAUTE' : 'MOYENNE'
+                    });
+                }
+            }
+            
+            // Vérifier la FCO
+            if (chauffeur.documents.fco && chauffeur.documents.fco.dateValidite) {
+                const dateValiditeFCO = new Date(chauffeur.documents.fco.dateValidite);
+                if (dateValiditeFCO <= dansDeuxMois && dateValiditeFCO >= aujourdhui) {
+                    const joursRestants = Math.ceil((dateValiditeFCO - aujourdhui) / (1000 * 60 * 60 * 24));
+                    alertes.push({
+                        type: '📋 FCO',
+                        chauffeur: `${chauffeur.prenom} ${chauffeur.nom}`,
+                        document: 'Formation Conducteur Obligatoire',
+                        dateExpiration: chauffeur.documents.fco.dateValidite,
+                        joursRestants: joursRestants,
+                        urgence: joursRestants <= 30 ? 'HAUTE' : 'MOYENNE'
+                    });
+                }
+            }
+            
+            // Vérifier la carte conducteur
+            if (chauffeur.documents.carteConducteur && chauffeur.documents.carteConducteur.dateValidite) {
+                const dateValiditeCarte = new Date(chauffeur.documents.carteConducteur.dateValidite);
+                if (dateValiditeCarte <= dansDeuxMois && dateValiditeCarte >= aujourdhui) {
+                    const joursRestants = Math.ceil((dateValiditeCarte - aujourdhui) / (1000 * 60 * 60 * 24));
+                    alertes.push({
+                        type: '🪪 CARTE',
+                        chauffeur: `${chauffeur.prenom} ${chauffeur.nom}`,
+                        document: 'Carte Conducteur',
+                        dateExpiration: chauffeur.documents.carteConducteur.dateValidite,
+                        joursRestants: joursRestants,
+                        urgence: joursRestants <= 30 ? 'HAUTE' : 'MOYENNE'
+                    });
+                }
+            }
+        }
+    });
+    
+    return alertes;
+}
+
+// FONCTION POUR AFFICHER LES ALERTES
+function afficherAlertesDocuments() {
+    const alertes = verifierAlertesDocuments();
+    
+    if (alertes.length > 0) {
+        let messageAlert = '📢 **ALERTES DOCUMENTS CHAUFFEURS**\n\n';
+        
+        alertes.forEach(alerte => {
+            const couleurUrgence = alerte.urgence === 'HAUTE' ? '🟥' : '🟨';
+            messageAlert += `${couleurUrgence} ${alerte.type} - ${alerte.chauffeur}\n`;
+            messageAlert += `📄 ${alerte.document}\n`;
+messageAlert += `📅 Expire le: ${formaterDateFR(alerte.dateExpiration)}\n`;
+            messageAlert += `⏳ Jours restants: ${alerte.joursRestants}\n`;
+            messageAlert += `🚨 Priorité: ${alerte.urgence}\n\n`;
+        });
+        
+        // Afficher l'alerte au chargement
+        setTimeout(() => {
+            if (confirm(messageAlert + '\nVoulez-vous voir le détail des documents ?')) {
+                afficherPage('chauffeurs');
+            }
+        }, 1500);
+        
+        // Programmer la prochaine alerte (toutes les semaines)
+        setTimeout(afficherAlertesDocuments, 7 * 24 * 60 * 60 * 1000);
+    }
+}
+
+// FONCTION POUR METTRE À JOUR UN DOCUMENT
+function mettreAJourDocument(chauffeurId, typeDocument, nouvellesInfos) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    if (chauffeur && chauffeur.documents) {
+        chauffeur.documents[typeDocument] = {
+            ...chauffeur.documents[typeDocument],
+            ...nouvellesInfos
+        };
+        alert('✅ Document mis à jour avec succès !');
+        afficherPage('chauffeurs');
+    }
+}
+// FONCTION POUR FORMATER LES DATES EN FRANÇAIS
+function formaterDateFR(dateISO) {
+    if (!dateISO) return 'N/A';
+    const date = new Date(dateISO);
+    return date.toLocaleDateString('fr-FR');
+}
+
+
+function modifierDocuments(chauffeurId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    if (chauffeur) {
+        document.getElementById('chauffeur-id-documents').value = chauffeurId;
+        
+        // Remplir les champs avec les données existantes
+        if (chauffeur.documents) {
+            if (chauffeur.documents.permis) {
+                document.getElementById('edit-numero-permis').value = chauffeur.documents.permis.numero || '';
+                document.getElementById('edit-date-validite-permis').value = chauffeur.documents.permis.dateValidite || '';
+                document.getElementById('edit-categorie-permis').value = chauffeur.documents.permis.categorie || 'B';
+            }
+            if (chauffeur.documents.fco) {
+                document.getElementById('edit-numero-fco').value = chauffeur.documents.fco.numero || '';
+                document.getElementById('edit-date-validite-fco').value = chauffeur.documents.fco.dateValidite || '';
+                document.getElementById('edit-organisme-fco').value = chauffeur.documents.fco.organisme || '';
+            }
+            if (chauffeur.documents.carteConducteur) {
+                document.getElementById('edit-numero-carte').value = chauffeur.documents.carteConducteur.numero || '';
+                document.getElementById('edit-date-validite-carte').value = chauffeur.documents.carteConducteur.dateValidite || '';
+            }
+        }
+        
+        montrerModal('modal-documents-chauffeur');
+    }
+}
+
+function sauvegarderDocuments() {
+    const chauffeurId = parseInt(document.getElementById('chauffeur-id-documents').value);
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    
+    if (chauffeur) {
+        if (!chauffeur.documents) {
+            chauffeur.documents = {};
+        }
+        
+        chauffeur.documents.permis = {
+            numero: document.getElementById('edit-numero-permis').value,
+            dateValidite: document.getElementById('edit-date-validite-permis').value,
+            categorie: document.getElementById('edit-categorie-permis').value
+        };
+        
+        chauffeur.documents.fco = {
+            numero: document.getElementById('edit-numero-fco').value,
+            dateValidite: document.getElementById('edit-date-validite-fco').value,
+            organisme: document.getElementById('edit-organisme-fco').value
+        };
+        
+        chauffeur.documents.carteConducteur = {
+            numero: document.getElementById('edit-numero-carte').value,
+            dateValidite: document.getElementById('edit-date-validite-carte').value
+        };
+        
+        cacherModal('modal-documents-chauffeur');
+        afficherPage('chauffeurs');
+        alert('✅ Documents mis à jour avec succès !');
+        
+        // Vérifier les nouvelles alertes
+        verifierAlertesDocuments();
+    }
+}
+
+// SYSTÈME D'ALERTES POUR LES CONTRÔLES VÉHICULES
+function verifierAlertesControles() {
+    const aujourdhui = new Date();
+    const dansUnMois = new Date();
+    dansUnMois.setMonth(aujourdhui.getMonth() + 1);
+    
+    const alertesControles = [];
+    
+    donnees.vehicules.forEach(vehicule => {
+        if (vehicule.controles) {
+            vehicule.controles.forEach(controle => {
+                if (controle.dateProchaine) {
+                    const dateProchaineControle = new Date(controle.dateProchaine);
+                    
+                    // Alerte 1 mois avant
+                    if (dateProchaineControle <= dansUnMois && dateProchaineControle >= aujourdhui) {
+                        const joursRestants = Math.ceil((dateProchaineControle - aujourdhui) / (1000 * 60 * 60 * 24));
+                        
+                        alertesControles.push({
+                            type: '🚗 VÉHICULE',
+                            vehicule: vehicule.immatriculation,
+                            controle: controle.type,
+                            dateExpiration: controle.dateProchaine,
+                            joursRestants: joursRestants,
+                            urgence: joursRestants <= 15 ? 'HAUTE' : 'MOYENNE'
+                        });
+                    }
+                }
+            });
+        }
+    });
+    
+    return alertesControles;
+}
+
+// FONCTION POUR AFFICHER LES ALERTES CONTRÔLES
+function afficherAlertesControles() {
+    const alertes = verifierAlertesControles();
+    
+    if (alertes.length > 0) {
+        let messageAlert = '🚗 **ALERTES CONTRÔLES VÉHICULES**\n\n';
+        
+        alertes.forEach(alerte => {
+            const couleurUrgence = alerte.urgence === 'HAUTE' ? '🟥' : '🟨';
+            messageAlert += `${couleurUrgence} ${alerte.type} - ${alerte.vehicule}\n`;
+            messageAlert += `🔧 ${alerte.controle}\n`;
+messageAlert += `📅 Prochain contrôle: ${formaterDateFR(alerte.dateExpiration)}\n`;
+            messageAlert += `⏳ Jours restants: ${alerte.joursRestants}\n`;
+            messageAlert += `🚨 Priorité: ${alerte.urgence}\n\n`;
+        });
+        
+        // Afficher l'alerte
+        setTimeout(() => {
+            if (confirm(messageAlert + '\nVoulez-vous voir les véhicules concernés ?')) {
+                afficherPage('vehicules');
+            }
+        }, 2500);
+    }
+}
 </script>
 
     <!-- MODAL POUR LA CRÉATION/MODIFICATION DE TOURNÉES -->
@@ -4332,7 +4731,67 @@ function assignerNumeroQuai(livraisonId) {
             </div>
         </div>
     </div>
+<!-- MODAL MODIFICATION DOCUMENTS -->
+<div id="modal-documents-chauffeur" class="modal">
+    <div class="modal-content">
+        <h3>📄 Modifier les Documents</h3>
+        <input type="hidden" id="chauffeur-id-documents">
+        
+        <div class="document-section">
+            <h4>🚗 Permis de conduire</h4>
+            <div class="form-group">
+                <label>Numéro:</label>
+                <input type="text" id="edit-numero-permis">
+            </div>
+            <div class="form-group">
+                <label>Date de validité:</label>
+                <input type="date" id="edit-date-validite-permis">
+            </div>
+            <div class="form-group">
+                <label>Catégorie:</label>
+                <select id="edit-categorie-permis">
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="C+E">C+E</option>
+                    <option value="D">D</option>
+                </select>
+            </div>
+        </div>
 
+        <div class="document-section">
+            <h4>📋 FCO</h4>
+            <div class="form-group">
+                <label>Numéro FCO:</label>
+                <input type="text" id="edit-numero-fco">
+            </div>
+            <div class="form-group">
+                <label>Date de validité:</label>
+                <input type="date" id="edit-date-validite-fco">
+            </div>
+            <div class="form-group">
+                <label>Organisme:</label>
+                <input type="text" id="edit-organisme-fco">
+            </div>
+        </div>
+
+        <div class="document-section">
+            <h4>🪪 Carte Conducteur</h4>
+            <div class="form-group">
+                <label>Numéro carte:</label>
+                <input type="text" id="edit-numero-carte">
+            </div>
+            <div class="form-group">
+                <label>Date de validité:</label>
+                <input type="date" id="edit-date-validite-carte">
+            </div>
+        </div>
+
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-success" onclick="sauvegarderDocuments()">💾 Sauvegarder</button>
+            <button class="btn" onclick="cacherModal('modal-documents-chauffeur')">❌ Annuler</button>
+        </div>
+    </div>
+</div>
 <script>
     // VOTRE GRAND SCRIPT PRINCIPAL (avec la nouvelle fonction seConnecter)
 </script>
