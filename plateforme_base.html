@@ -1,0 +1,4345 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PalBank TMS - Connexion</title>
+    <style>
+.boutons-container {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    gap: 5px !important;
+    align-items: center !important;
+    width: 100% !important;
+}
+
+.boutons-container button {
+    white-space: nowrap !important;
+    padding: 4px 8px !important;
+    font-size: 12px !important;
+    flex-shrink: 1 !important;
+    min-width: unset !important;
+    height: auto !important;
+    line-height: 1.2 !important;
+}    
+    /* STYLES POUR LA PAGE DE CONNEXION */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: Arial, sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .login-container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .login-header {
+            background: #1e40af;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+        
+        .login-content {
+            padding: 30px;
+        }
+        
+        .form-group { 
+            margin-bottom: 20px; 
+        }
+        
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-weight: bold; 
+            color: #374151; 
+        }
+        
+        .form-group input, 
+        .form-group select { 
+            width: 100%; 
+            padding: 12px; 
+            border: 2px solid #d1d5db; 
+            border-radius: 8px; 
+            font-size: 16px; 
+        }
+        
+        .form-group input:focus, 
+        .form-group select:focus { 
+            outline: none; 
+            border-color: #1e40af; 
+        }
+        
+        .btn { 
+            width: 100%; 
+            padding: 15px; 
+            border: none; 
+            border-radius: 8px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            cursor: pointer; 
+            margin-bottom: 15px; 
+            transition: all 0.3s ease; 
+        }
+        
+        .btn-primary { 
+            background: #1e40af; 
+            color: white; 
+        }
+        
+        .btn-primary:hover { 
+            background: #1e3a8a; 
+        }
+        
+        .btn-secondary { 
+            background: #6b7280; 
+            color: white; 
+        }
+        
+        .btn-secondary:hover { 
+            background: #4b5563; 
+        }
+        
+        .separator {
+            text-align: center;
+            margin: 20px 0;
+            color: #6b7280;
+            position: relative;
+        }
+        
+        .separator::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e7eb;
+        }
+        
+        .separator span {
+            background: white;
+            padding: 0 15px;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+        
+        .success-message {
+            background: #dcfce7;
+            color: #16a34a;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        /* STYLES POUR LA PLATEFORME */
+        .platform-body {
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: none;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: #1e40af;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        
+        .nav {
+            background: #1e40af;
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .nav button {
+            background: #4b5563;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        
+        .nav button:hover {
+            background: #1e40af;
+        }
+        
+        .content {
+            padding: 30px;
+            min-height: 500px;
+        }
+        
+        .platform-btn {
+            background: #1e40af;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        
+        .btn-success { background: #059669; }
+        .btn-warning { background: #d97706; }
+        .btn-danger { background: #dc2626; }
+        .btn-sm { padding: 5px 10px; font-size: 12px; }
+        
+        .card {
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+        
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 20px 0; }
+        
+        .user-badge {
+            background: #7c3aed;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+        
+        .statut-badge {
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        
+        .statut-en-attente { background: #fef3c7; color: #d97706; }
+        .statut-confirmee { background: #dbeafe; color: #1e40af; }
+        .statut-en-cours { background: #f0f9ff; color: #0369a1; }
+        .statut-chargement { background: #f3e8ff; color: #7c3aed; }
+        .statut-en-route { background: #ecfdf5; color: #059669; }
+        .statut-livree { background: #f0fdf4; color: #16a34a; }
+        .statut-terminee { background: #f8fafc; color: #64748b; }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 1000;
+        }
+        
+        .modal-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+        
+        .form-group-platform { margin-bottom: 15px; }
+        .form-group-platform label { display: block; margin-bottom: 5px; font-weight: bold; }
+        .form-group-platform input, 
+        .form-group-platform select, 
+        .form-group-platform textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .form-group-platform textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        
+        .timeline {
+            position: relative;
+            margin: 20px 0;
+        }
+        
+        .timeline-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: #e5e7eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .timeline-icon.active {
+            background: #1e40af;
+            color: white;
+        }
+        
+        .timeline-content {
+            flex: 1;
+        }
+        
+        .document-section {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .document-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+/* STYLES COMPACT POUR LA GESTION DES TOURNÉES */
+.filtres-tournees {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    background: #f8fafc;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+}
+
+.grille-tournees {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.carte-tournee {
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    padding: 15px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: transform 0.2s ease;
+}
+
+.carte-tournee:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.carte-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f3f4f6;
+}
+
+.plaque-vehicule {
+    background: #1e40af;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.voyage {
+    background: #f59e0b;
+    color: white;
+    padding: 3px 6px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: bold;
+}
+
+.info-chauffeur {
+    font-size: 13px;
+    color: #6b7280;
+    margin-bottom: 8px;
+}
+
+.details-service {
+    background: #f8fafc;
+    padding: 8px;
+    border-radius: 4px;
+    margin-top: 8px;
+}
+
+.heure-service {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    color: #374151;
+    font-size: 12px;
+}
+
+.actions-carte {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.btn-icone {
+    padding: 4px 8px;
+    font-size: 11px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+        /* STYLES POUR LE PLANNING A4 PAYSAGE */
+        .page-a4-paysage {
+            width: 297mm;
+            min-height: 210mm;
+            margin: 0 auto;
+            padding: 10mm;
+            background: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transform-origin: top left;
+        }
+        
+        .entete-planning {
+            text-align: center;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid #000;
+        }
+        
+        .titre-planning {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 3px;
+        }
+        
+        .date-planning {
+            font-size: 14px;
+            font-weight: bold;
+        }
+        
+        .clients-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 6px;
+            margin-bottom: 8px;
+        }
+        
+        .client-card {
+            border: 1px solid #000;
+            border-radius: 4px;
+            background: #f8f8f8;
+            padding: 5px;
+            font-size: 11px;
+            page-break-inside: avoid;
+        }
+        
+        .client-nom {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 4px;
+            padding-bottom: 2px;
+            border-bottom: 1px solid #000;
+        }
+        
+        .section-vehicules {
+            margin: 3px 0;
+        }
+        
+        .type-vehicule {
+            font-weight: bold;
+            font-size: 10px;
+            margin: 2px 0;
+            padding-left: 3px;
+        }
+        
+        .tournee-item {
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            padding: 3px;
+            margin: 2px 0;
+            font-size: 10px;
+        }
+        
+        .vh-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1px;
+        }
+        
+        .vh-plaque {
+            font-weight: bold;
+        }
+        
+        .vh-voyage {
+            background: #333;
+            color: white;
+            padding: 1px 4px;
+            border-radius: 6px;
+            font-size: 9px;
+        }
+        
+        .chauffeur-info {
+            margin-bottom: 1px;
+        }
+        
+        .heure-service-planning {
+            display: flex;
+            justify-content: space-between;
+            font-size: 9px;
+            border-top: 1px solid #eee;
+            padding-top: 1px;
+            margin-top: 1px;
+        }
+        
+        .recap-journalier {
+            text-align: center;
+            margin-top: 8px;
+            padding: 5px;
+            background: #f0f0f0;
+            border-radius: 3px;
+            font-size: 11px;
+            border: 1px solid #000;
+        }
+        
+        .stats-recap {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 5px;
+            margin-top: 3px;
+            font-size: 10px;
+        }
+        
+        .boutons-actions-planning {
+            text-align: center;
+            margin: 15px 0;
+        }
+
+/* IMPRESSION COMPATIBLE SAFARI + CHROME + WINDOWS */
+@media print {
+
+    @page {
+        size: A4 landscape;
+        margin: 8mm;
+    }
+
+    /* Masquer tout le contenu de la plateforme */
+    body * {
+        visibility: hidden !important;
+    }
+
+    /* Ré-afficher UNIQUEMENT le planning */
+    .planning-printable, 
+    .planning-printable * {
+        visibility: visible !important;
+    }
+
+    /* Positionner le planning au bon endroit */
+    .planning-printable {
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+    }
+}
+
+/* -------------------------------- */
+/*    PATCH SPÉCIAL SAFARI ONLY      */
+/* -------------------------------- */
+/* Safari ignore le paysage → on réduit pour tout faire tenir */
+
+@media print and (-webkit-min-device-pixel-ratio:0) {
+
+    .planning-printable {
+        transform-origin: top left !important;
+        transform: scale(0.80) !important; /* Ajustable entre 0.70 et 0.90 */
+        width: 100% !important;
+        page-break-inside: avoid !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+}
+
+</style>
+</head>
+<body>
+    <!-- PAGE DE CONNEXION -->
+    <div id="login-container" class="login-container">
+        <div class="login-header">
+            <h1>PalBank TMS</h1>
+            <p>Plateforme de Transport Multimodale</p>
+        </div>
+
+        <div class="login-content">
+            <!-- Message d'erreur -->
+            <div id="error-message" class="error-message"></div>
+            <div id="success-message" class="success-message"></div>
+
+            <!-- Formulaire de connexion -->
+            <div id="login-form">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #1e40af;">Se connecter</h2>
+                
+                <div class="form-group">
+                    <label for="login-email">Adresse email</label>
+                    <input type="email" id="login-email" placeholder="votre@email.com">
+                </div>
+                
+                <div class="form-group">
+                    <label for="login-password">Mot de passe</label>
+                    <input type="password" id="login-password" placeholder="Votre mot de passe">
+                </div>
+                
+                <button class="btn btn-primary" onclick="seConnecter()">🔐 Se connecter</button>
+                
+                <div class="separator">
+                    <span>ou</span>
+                </div>
+                
+                <button class="btn btn-secondary" onclick="afficherCreationCompte()">📝 Créer un compte</button>
+            </div>
+
+            <!-- Formulaire de création de compte -->
+            <div id="create-account-form" style="display: none;">
+                <h2 style="text-align: center; margin-bottom: 20px; color: #1e40af;">Créer un compte</h2>
+                
+                <div class="form-group">
+                    <label for="account-type">Type de compte</label>
+                    <select id="account-type" onchange="changerTypeCompte()">
+                        <option value="">Choisissez votre profil</option>
+                        <option value="expediteur">Expéditeur</option>
+                        <option value="transporteur">Transporteur</option>
+                        <option value="destinataire">Destinataire</option>
+                        <option value="chauffeur">Chauffeur</option>
+                    </select>
+                </div>
+                
+<div class="form-group">
+    <label for="create-email">Adresse email</label>
+    <input type="email" id="create-email" placeholder="votre@email.com" onblur="verifierEmail()">
+    <div id="email-verification" style="display: none; margin-top: 5px;">
+        <button type="button" class="btn btn-sm" onclick="envoyerCodeVerification()" style="padding: 5px 10px; font-size: 12px; background: #1e40af; color: white;">
+            📧 Envoyer le code de vérification
+        </button>
+    </div>
+</div>
+
+<div class="form-group" id="code-verification-group" style="display: none;">
+    <label for="code-verification">Code de vérification</label>
+    <input type="text" id="code-verification" placeholder="Entrez le code reçu par email" maxlength="6">
+    <div style="display: flex; gap: 10px; margin-top: 10px;">
+        <button type="button" class="btn btn-sm btn-success" onclick="verifierCode()" style="padding: 5px 10px; font-size: 12px;">
+            ✅ Vérifier le code
+        </button>
+        <button type="button" class="btn btn-sm" onclick="renvoyerCode()" style="padding: 5px 10px; font-size: 12px;">
+            🔄 Renvoyer le code
+        </button>
+    </div>
+</div>
+                
+                <div class="form-group">
+                    <label for="create-password">Mot de passe</label>
+                    <input type="password" id="create-password" placeholder="Choisissez un mot de passe">
+                </div>
+                
+                <div class="form-group">
+                    <label for="confirm-password">Confirmer le mot de passe</label>
+                    <input type="password" id="confirm-password" placeholder="Confirmez votre mot de passe">
+                </div>
+                
+                <!-- Champs spécifiques selon le type de compte -->
+                <div id="company-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="company-name">Nom de l'entreprise</label>
+                        <input type="text" id="company-name" placeholder="Raison sociale">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-siret">SIRET</label>
+                        <input type="text" id="company-siret" placeholder="Numéro SIRET">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-address">Adresse</label>
+                        <input type="text" id="company-address" placeholder="Adresse complète">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="company-phone">Téléphone</label>
+                        <input type="tel" id="company-phone" placeholder="Numéro de téléphone">
+                    </div>
+                </div>
+                
+                <!-- Champs spécifiques pour chauffeur -->
+                <div id="driver-fields" style="display: none;">
+                    <div class="form-group">
+                        <label for="driver-firstname">Prénom</label>
+                        <input type="text" id="driver-firstname" placeholder="Votre prénom">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="driver-lastname">Nom</label>
+                        <input type="text" id="driver-lastname" placeholder="Votre nom">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="driver-license">Permis</label>
+                        <select id="driver-license">
+                            <option value="B">B - Voiture</option>
+                            <option value="C">C - Poids lourd</option>
+                            <option value="C+E">C+E - Semi-remorque</option>
+                            <option value="D">D - Transport en commun</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="driver-address">Adresse</label>
+                        <input type="text" id="driver-address" placeholder="Votre adresse">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="driver-phone">Téléphone</label>
+                        <input type="tel" id="driver-phone" placeholder="Votre numéro">
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" onclick="creerCompte()">✅ Créer le compte</button>
+                    <button class="btn btn-secondary" onclick="afficherConnexion()">↩️ Retour</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PLATEFORME PRINCIPALE -->
+    <div id="platform-body" class="platform-body">
+        <div class="container">
+<div class="header" style="display: flex; justify-content: space-between; align-items: center; padding: 15px 20px;">
+    <div>
+        <h1 style="margin: 0; font-size: 1.5em;">PalBank TMS - Plateforme de Transport</h1>
+        <p style="margin: 5px 0 0 0; font-size: 0.9em;">Gestion complète du transport de marchandises</p>
+    </div>
+<div style="display: flex; align-items: center; gap: 10px;">
+    <div style="display: flex; align-items: center; gap: 5px;">
+        <span style="font-size: 0.9em;"><strong>Connecté en tant que :</strong></span>
+        <span id="current-user" class="user-badge" style="font-size: 0.8em;">Transporteur</span>
+    </div>
+    <button class="platform-btn btn-danger" onclick="seDeconnecter()" style="padding: 6px 10px; font-size: 0.8em;">🚪 Déconnexion</button>
+</div>
+</div>
+
+            <!-- NAVIGATION AVEC NOUVEAUX ONGLETS -->
+            <div class="nav">
+                <button onclick="afficherPage('tableaudebord')">Tableau de Bord</button>
+                <button onclick="afficherPage('acteurs')">Gestion Comptes</button>
+                <button onclick="afficherPage('livraisons')">Livraisons</button>
+                <button onclick="afficherPage('tournees')">Gestion Tournées</button>
+                <button onclick="afficherPage('planning')">Planning A4</button>
+                <button onclick="afficherPage('palettes')">Palettes</button>
+                <button onclick="afficherPage('vehicules')">Gestion de Parc</button>
+                <button onclick="afficherPage('chauffeurs')">Chauffeurs</button>
+                <button onclick="afficherPage('facturation')">Facturation</button>
+            </div>
+
+            <div id="content" class="content">
+                <h2>Tableau de Bord</h2>
+                <p>Chargement en cours...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS -->
+    <div id="modal-tournee" class="modal" data-edit-id="">
+        <div class="modal-content">
+            <h3 id="titre-modal-tournee">Nouvelle Tournée</h3>
+            
+            <div class="form-group-platform">
+                <label for="nom-client-tournee">🏢 Nom du Client</label>
+                <input type="text" id="nom-client-tournee" placeholder="Ex: GROUPE DISTRI">
+            </div>
+            
+            <div class="form-group-platform">
+                <label for="plaque-vehicule-tournee">🚚 Plaque Véhicule</label>
+                <input type="text" id="plaque-vehicule-tournee" placeholder="Ex: AB-123-CD">
+            </div>
+            
+            <div class="form-group-platform">
+                <label for="nom-chauffeur-tournee">👤 Nom du Chauffeur</label>
+                <input type="text" id="nom-chauffeur-tournee" placeholder="Ex: J. Martin">
+            </div>
+            
+            <div class="form-group-platform">
+                <label for="type-vehicule-tournee">📦 Type de Véhicule</label>
+                <select id="type-vehicule-tournee">
+                    <option value="Port 19T">Porteur 19T</option>
+                    <option value="Port 16T">Porteur 16T</option>
+                    <option value="Port 14T">Porteur 14T</option>
+                    <option value="Ens 38T">Ensemble 38T</option>
+                    <option value="Ens 40T">Ensemble 40T</option>
+                </select>
+            </div>
+            
+            <div class="form-group-platform">
+                <label for="numero-voyage-tournee">🎫 Numéro de Voyage</label>
+                <input type="text" id="numero-voyage-tournee" placeholder="Ex: VH-001">
+            </div>
+            
+            <div class="form-group-platform">
+                <label for="heure-prise-tournee">⏰ Heure de Prise de Service</label>
+                <input type="time" id="heure-prise-tournee">
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="gererTournee()">💾 Sauvegarder</button>
+                <button class="platform-btn" onclick="cacherModal('modal-tournee')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-chauffeur" class="modal">
+        <div class="modal-content">
+            <h3>👤 Ajouter un Chauffeur</h3>
+            
+            <div class="form-group-platform">
+                <label>Nom:</label>
+                <input type="text" id="nom-chauffeur" placeholder="Martin">
+            </div>
+            
+            <div class="form-group-platform">
+                <label>Prénom:</label>
+                <input type="text" id="prenom-chauffeur" placeholder="Jean">
+            </div>
+            
+            <div class="form-group-platform">
+                <label>Permis:</label>
+                <select id="permis-chauffeur">
+                    <option value="B">B - Voiture</option>
+                    <option value="C">C - Poids lourd</option>
+                    <option value="C+E">C+E - Semi-remorque</option>
+                    <option value="D">D - Transport en commun</option>
+                </select>
+            </div>
+            
+            <div class="form-group-platform">
+                <label>Transporteur:</label>
+                <select id="transporteur-chauffeur">
+                    <option value="2">Transports Dupont</option>
+                </select>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="creerChauffeur()">✅ Créer le Chauffeur</button>
+                <button class="platform-btn" onclick="cacherModal('modal-chauffeur')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-livraison" class="modal">
+        <div class="modal-content">
+            <h3>🚚 Nouvelle Livraison / Tournée</h3>
+            
+            <div class="form-group-platform">
+                <label>Expéditeur:</label>
+                <select id="expediteur-livraison">
+                    <option value="1">SARL France Export</option>
+                </select>
+            </div>
+
+            <div class="form-group-platform">
+                <label>Destinataires (tournée multi-stops):</label>
+                <div style="border: 1px solid #ddd; padding: 15px; border-radius: 4px; max-height: 200px; overflow-y: auto;">
+                    <div>
+                        <input type="checkbox" id="dest1" value="3">
+                        <label for="dest1">SuperMarché Pro (Marseille)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dest2" value="4">
+                        <label for="dest2">Hyper U (Lyon)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dest3" value="5"> 
+                        <label for="dest3">Carrefour Market (Paris)</label>
+                    </div>
+                </div>
+                <small>Sélectionnez un ou plusieurs destinataires pour créer une tournée</small>
+            </div>
+
+            <div class="form-group-platform">
+                <label>Transporteur:</label>
+                <select id="transporteur-livraison">
+                    <option value="2">Transports Dupont</option>
+                </select>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group-platform">
+                    <label>Nombre total de palettes:</label>
+                    <input type="number" id="palettes-livraison" placeholder="8">
+                </div>
+                <div class="form-group-platform">
+                    <label>Poids total (kg):</label>
+                    <input type="number" id="poids-livraison" placeholder="1200">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group-platform">
+                    <label>Tarif total (€):</label>
+                    <input type="number" id="tarif-livraison" placeholder="450">
+                </div>
+                <div class="form-group-platform">
+                    <label>Nature des produits:</label>
+                    <input type="text" id="produits-livraison" placeholder="Produits alimentaires">
+                </div>
+            </div>
+
+            <div class="form-group-platform">
+                <label>Consignes spéciales:</label>
+                <textarea id="consignes-livraison" rows="3" placeholder="Température contrôlée, fragile..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="creerLivraison()">✅ Créer la Livraison/Tournée</button>
+                <button class="platform-btn" onclick="cacherModal('modal-livraison')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-vehicule" class="modal">
+        <div class="modal-content">
+            <h3>🚛 Ajouter un Nouveau Véhicule</h3>
+            <div class="form-group-platform">
+                <label>Immatriculation:</label>
+                <input type="text" id="immatriculation-vehicule" placeholder="AB-123-CD">
+            </div>
+            <div class="form-group-platform">
+                <label>Marque:</label>
+                <input type="text" id="marque-vehicule" placeholder="Renault">
+            </div>
+            <div class="form-group-platform">
+                <label>Modèle:</label>
+                <input type="text" id="modele-vehicule" placeholder="T Range T480">
+            </div>
+            <div class="form-group-platform">
+                <label>Numéro de châssis:</label>
+                <input type="text" id="chassis-vehicule" placeholder="VF7XXXXXXXXXXXXXX">
+            </div>
+            <div class="form-group-platform">
+                <label>Type:</label>
+                <select id="type-vehicule">
+                    <option value="Camion frigorifique">Camion frigorifique</option>
+                    <option value="Camion plateau">Camion plateau</option>
+                    <option value="Camion benne">Camion benne</option>
+                    <option value="Utilitaire">Utilitaire</option>
+                </select>
+            </div>
+            <div class="form-group-platform">
+                <label>Capacité:</label>
+                <input type="text" id="capacite-vehicule" placeholder="33 palettes">
+            </div>
+            <div class="form-group-platform">
+                <label>Date de mise en service:</label>
+                <input type="date" id="date-vehicule">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="creerVehicule()">✅ Créer le Véhicule</button>
+                <button class="platform-btn" onclick="cacherModal('modal-vehicule')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-entretien" class="modal">
+        <div class="modal-content">
+            <h3>🔧 Nouvel Entretien</h3>
+            <input type="hidden" id="vehicule-id-entretien">
+            <div class="form-group-platform">
+                <label>Type d'entretien:</label>
+                <select id="type-entretien">
+                    <option value="Vidange">Vidange</option>
+                    <option value="Changement pneus">Changement pneus</option>
+                    <option value="Révision">Révision</option>
+                    <option value="Freins">Freins</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+            <div class="form-group-platform">
+                <label>Date:</label>
+                <input type="date" id="date-entretien">
+            </div>
+            <div class="form-group-platform">
+                <label>Kilométrage:</label>
+                <input type="number" id="km-entretien" placeholder="85000">
+            </div>
+            <div class="form-group-platform">
+                <label>Coût (€):</label>
+                <input type="number" id="cout-entretien" placeholder="450">
+            </div>
+            <div class="form-group-platform">
+                <label>Prestataire:</label>
+                <input type="text" id="prestataire-entretien" placeholder="Garage Central">
+            </div>
+            <div class="form-group-platform">
+                <label>Notes:</label>
+                <textarea id="notes-entretien" rows="3" placeholder="Détails de l'intervention..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="creerEntretien()">✅ Enregistrer l'Entretien</button>
+                <button class="platform-btn" onclick="cacherModal('modal-entretien')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-controle" class="modal">
+        <div class="modal-content">
+            <h3>📋 Nouveau Contrôle</h3>
+            <input type="hidden" id="vehicule-id-controle">
+            <div class="form-group-platform">
+                <label>Type de contrôle:</label>
+                <select id="type-controle">
+                    <option value="Contrôle technique">Contrôle technique</option>
+                    <option value="Tachygraphe">Tachygraphe</option>
+                    <option value="Hayon">Hayon</option>
+                </select>
+            </div>
+            <div class="form-group-platform">
+                <label>Date du contrôle:</label>
+                <input type="date" id="date-controle">
+            </div>
+            <div class="form-group-platform">
+                <label>Date du prochain contrôle:</label>
+                <input type="date" id="date-prochaine-controle">
+            </div>
+            <div class="form-group-platform">
+                <label>Statut:</label>
+                <select id="statut-controle">
+                    <option value="Valide">Valide</option>
+                    <option value="En attente">En attente</option>
+                    <option value="Non conforme">Non conforme</option>
+                </select>
+            </div>
+            <div class="form-group-platform">
+                <label>Organisme:</label>
+                <input type="text" id="organisme-controle" placeholder="Centre de contrôle agréé">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="creerControle()">✅ Enregistrer le Contrôle</button>
+                <button class="platform-btn" onclick="cacherModal('modal-controle')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-document" class="modal">
+        <div class="modal-content">
+            <h3>📸 Scanner Document</h3>
+            <input type="hidden" id="vehicule-id-document">
+            <input type="hidden" id="type-document">
+            <div class="form-group-platform">
+                <label>Type de document:</label>
+                <strong id="label-type-document">Carte grise</strong>
+            </div>
+            <div class="form-group-platform">
+                <label>Date du scan:</label>
+                <input type="date" id="date-scan">
+            </div>
+            <div class="form-group-platform">
+                <label>Fichier:</label>
+                <input type="file" id="fichier-scan" accept=".pdf,.jpg,.png">
+            </div>
+            <div class="form-group-platform">
+                <label>Notes:</label>
+                <textarea id="notes-scan" rows="2" placeholder="Informations complémentaires..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="platform-btn btn-success" onclick="enregistrerScan()">✅ Enregistrer le Scan</button>
+                <button class="platform-btn" onclick="cacherModal('modal-document')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+// Interface avec Electron
+if (typeof electronAPI !== 'undefined') {
+  // Sauvegarde automatique toutes les 30 secondes
+  setInterval(async () => {
+    if (donnees.utilisateurConnecte) {
+      try {
+        const resultat = await electronAPI.sauvegarderDonnees(donnees);
+        if (resultat.success) {
+          console.log('💾 Sauvegarde automatique réussie');
+        }
+      } catch (error) {
+        console.log('Sauvegarde locale (mode web)');
+        localStorage.setItem('palbank_sauvegarde', JSON.stringify(donnees));
+      }
+    }
+  }, 30000);
+
+  // Chargement au démarrage
+  window.addEventListener('DOMContentLoaded', async () => {
+    try {
+      const resultat = await electronAPI.chargerSauvegarde();
+      if (resultat.success && resultat.donnees) {
+        Object.assign(donnees, resultat.donnees);
+        console.log('📂 Sauvegarde chargée depuis fichier');
+      }
+    } catch (error) {
+      // Mode fallback : localStorage
+      const sauvegarde = localStorage.getItem('palbank_sauvegarde');
+      if (sauvegarde) {
+        Object.assign(donnees, JSON.parse(sauvegarde));
+        console.log('📂 Sauvegarde chargée depuis localStorage');
+      }
+    }
+  });
+} else {
+  // Mode navigateur web normal
+  const sauvegarde = localStorage.getItem('palbank_sauvegarde');
+  if (sauvegarde) {
+    Object.assign(donnees, JSON.parse(sauvegarde));
+  }
+}  
+  
+    // DONNÉES COMPLÈTES AVEC SYSTÈME D'AUTHENTIFICATION
+        const donnees = {
+            utilisateurActuel: null,
+            utilisateurConnecte: null,
+            acteurs: [
+                { 
+                    id: 1, 
+                    type: 'admin', 
+                    raisonSociale: 'Administrateur Plateforme',
+                    email: 'admin@palbank.com',
+                    motDePasse: 'admin123',
+                    adresse: 'Plateforme PalBank TMS',
+                    telephone: '01 23 45 67 89',
+                    dateCreation: '15/01/2024'
+                },
+                { 
+                    id: 2, 
+                    type: 'expediteur', 
+                    raisonSociale: 'SARL France Export',
+                    email: 'contact@france-export.fr',
+                    motDePasse: 'expediteur123',
+                    siret: '123 456 789 00012',
+                    adresse: '123 Rue du Commerce, 75001 Paris',
+                    telephone: '01 23 45 67 89',
+                    dateCreation: '15/01/2024'
+                },
+                { 
+                    id: 3, 
+                    type: 'transporteur', 
+                    raisonSociale: 'Transports Dupont',
+                    email: 'contact@transports-dupont.fr',
+                    motDePasse: 'transporteur123',
+                    siret: '987 654 321 00012',
+                    adresse: '456 Avenue des Transports, 69002 Lyon',
+                    telephone: '04 56 78 90 12',
+                    dateCreation: '16/01/2024'
+                },
+                { 
+                    id: 4, 
+                    type: 'destinataire', 
+                    raisonSociale: 'SuperMarché Pro',
+                    email: 'reception@supermarche-pro.fr',
+                    motDePasse: 'destinataire123',
+                    siret: '456 123 789 00012',
+                    adresse: '789 Boulevard des Commerces, 13008 Marseille',
+                    telephone: '04 91 23 45 67',
+                    dateCreation: '17/01/2024'
+                },
+                { 
+                    id: 5, 
+                    type: 'chauffeur', 
+                    raisonSociale: 'Jean Martin',
+                    email: 'jean.martin@transports-dupont.fr',
+                    motDePasse: 'chauffeur123',
+                    transporteurId: 3,
+                    adresse: '123 Rue des Chauffeurs, 69000 Lyon',
+                    telephone: '06 12 34 56 78',
+                    permis: 'C+E',
+                    dateCreation: '18/01/2024'
+                }
+            ],
+            livraisons: [
+                {
+                    id: 1,
+                    reference: 'LIV2024-0001',
+                    expediteurId: 1,
+                    expediteur: 'SARL France Export',
+                    destinataireId: 3,
+                    destinataire: 'SuperMarché Pro',
+                    transporteurId: 2,
+                    transporteur: 'Transports Dupont',
+                    chauffeurId: null,
+                    chauffeur: null,
+                    vehiculeId: null,
+                    vehicule: null,
+                    nbPalettes: 8,
+                    poids: 1200,
+                    tarif: 450,
+                    natureProduits: 'Produits alimentaires',
+                    consignes: 'Température contrôlée entre 2°C et 8°C',
+                    statut: 'En attente',
+                    dateCreation: '28/10/2024',
+                    dateChargement: null,
+                    dateLivraison: null,
+                    numeroQuai: null,
+                    detailsChargement: null,
+                    confirmationChargement: false,
+                    confirmationLivraisonChauffeur: false,
+                    confirmationLivraisonDestinataire: false,
+                    reservesLivraison: '',
+                    palettesRendues: 0,
+                    factureGeneree: false,
+                    bordereauGenere: false,
+                    lettreVoitureGeneree: false,
+                    palettesChargees: null,
+                    validationExpediteur: false                
+                 }
+            ],
+            vehicules: [
+                {
+                    id: 1,
+                    immatriculation: 'AB-123-CD',
+                    transporteurId: 2,
+                    transporteur: 'Transports Dupont',
+                    marque: 'Renault',
+                    modele: 'T Range T480',
+                    numeroChassis: 'VF7XXXXXXXXXXXXXX',
+                    type: 'Camion frigorifique',
+                    capacite: '33 palettes',
+                    statut: 'Disponible',
+                    dateMiseEnService: '15/01/2023',
+                    entretiens: [
+                        {
+                            id: 1,
+                            type: 'Vidange',
+                            date: '15/06/2024',
+                            kilometrage: 85000,
+                            cout: 450,
+                            prestataire: 'Garage Central'
+                        },
+                        {
+                            id: 2, 
+                            type: 'Changement pneus',
+                            date: '20/08/2024',
+                            kilometrage: 92000,
+                            cout: 1200,
+                            prestataire: 'Pneus Express'
+                        }
+                    ],
+                    controles: [
+                        {
+                            id: 1,
+                            type: 'Contrôle technique',
+                            date: '10/01/2024',
+                            dateProchaine: '10/01/2025',
+                            statut: 'Valide'
+                        },
+                        {
+                            id: 2,
+                            type: 'Tachygraphe',
+                            date: '15/03/2024', 
+                            dateProchaine: '15/03/2025',
+                            statut: 'Valide'
+                        },
+                        {
+                            id: 3,
+                            type: 'Hayon',
+                            date: '20/09/2024',
+                            dateProchaine: '20/03/2025',
+                            statut: 'Valide'
+                        }
+                    ],
+                    documents: [
+                        {
+                            id: 1,
+                            type: 'Carte grise',
+                            dateScan: '15/01/2023',
+                            statut: 'Scanné'
+                        }
+                    ]
+                }
+            ],
+            chauffeurs: [
+                {
+                    id: 1,
+                    nom: 'Martin',
+                    prenom: 'Jean',
+                    transporteurId: 2,
+                    transporteur: 'Transports Dupont',
+                    permis: 'C+E',
+                    statut: 'Disponible',
+                    absences: [
+                        {
+                            id: 1,
+                            type: 'Congés',
+                            dateDebut: '2024-12-20',
+                            dateFin: '2024-12-31',
+                            motif: 'Congés de Noël',
+                            statut: 'Validé',
+                            dateDemande: '2024-11-15'
+                        },
+                        {
+                            id: 2,
+                            type: 'Maladie',
+                            dateDebut: '2024-11-10',
+                            dateFin: '2024-11-12',
+                            motif: 'Grippe',
+                            statut: 'Terminé',
+                            dateDemande: '2024-11-10'
+                        }
+                    ],
+                    demandesEnCours: [
+                        {
+                            id: 1,
+                            type: 'Repos',
+                            dateDebut: '2024-12-05',
+                            dateFin: '2024-12-05',
+                            motif: 'Repos compensateur',
+                            statut: 'En attente',
+                            dateDemande: '2024-11-25'
+                        }
+                    ]
+                }
+            ],
+            factures: [],
+            palettes: {
+                expediteur1: 100,
+                destinataire3: 50,
+                transporteur2: 20
+            },
+            notifications: [],
+            tournees: []
+        };
+
+        // FONCTIONS D'AUTHENTIFICATION
+        function afficherMessage(type, message) {
+            const element = type === 'error' ? document.getElementById('error-message') : document.getElementById('success-message');
+            const autreElement = type === 'error' ? document.getElementById('success-message') : document.getElementById('error-message');
+            
+            element.textContent = message;
+            element.style.display = 'block';
+            autreElement.style.display = 'none';
+        }
+
+        function cacherMessages() {
+            document.getElementById('error-message').style.display = 'none';
+            document.getElementById('success-message').style.display = 'none';
+        }
+
+        function afficherCreationCompte() {
+            document.getElementById('login-form').style.display = 'none';
+            document.getElementById('create-account-form').style.display = 'block';
+            cacherMessages();
+        }
+
+
+function safeReset(id) {
+    const el = document.getElementById(id);
+    if (el) el.reset();
+}
+
+        function changerTypeCompte() {
+            const type = document.getElementById('account-type').value;
+            const companyFields = document.getElementById('company-fields');
+            const driverFields = document.getElementById('driver-fields');
+            
+            companyFields.style.display = (type === 'expediteur' || type === 'transporteur' || type === 'destinataire') ? 'block' : 'none';
+            driverFields.style.display = (type === 'chauffeur') ? 'block' : 'none';
+        }
+let emailVerifie = false; // 
+let codeVerification = '';
+let emailAVerifier = '';
+
+function verifierEmail() {
+    const email = document.getElementById('create-email').value;
+    const emailVerification = document.getElementById('email-verification');
+    
+    // Validation basique d'email
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (email && emailRegex.test(email)) {
+        emailVerification.style.display = 'block';
+        emailAVerifier = email;
+    } else {
+        emailVerification.style.display = 'none';
+        document.getElementById('code-verification-group').style.display = 'none';
+    }
+}
+
+function envoyerCodeVerification() {
+    const email = document.getElementById('create-email').value;
+    
+    if (!email) {
+        afficherMessage('error', '⚠️ Veuillez saisir une adresse email');
+        return;
+    }
+    
+    // Générer un code à 6 chiffres
+    codeVerification = Math.floor(100000 + Math.random() * 900000).toString();
+    
+    // Message professionnel
+    afficherMessage('success', `📧 Code de vérification généré : ${codeVerification}<br><small>En mode production, ce code serait envoyé à ${email}</small>`);
+    
+    document.getElementById('code-verification-group').style.display = 'block';
+    document.getElementById('email-verification').style.display = 'none';
+}
+
+function verifierCode() {
+    const codeSaisi = document.getElementById('code-verification').value;
+    
+    if (!codeSaisi) {
+        afficherMessage('error', '⚠️ Veuillez saisir le code de vérification');
+        return;
+    }
+    
+    if (codeSaisi === codeVerification) {
+        emailVerifie = true; // ← IMPORTANT : Marquer l'email comme vérifié
+        afficherMessage('success', '✅ Email vérifié avec succès !');
+        document.getElementById('code-verification-group').style.display = 'none';
+        document.getElementById('create-email').style.borderColor = '#059669';
+        document.getElementById('create-email').style.backgroundColor = '#f0fdf4';
+    } else {
+        afficherMessage('error', '❌ Code incorrect. Veuillez réessayer.');
+    }
+}
+
+function renvoyerCode() {
+    envoyerCodeVerification();
+    document.getElementById('code-verification').value = '';
+}
+function seConnecter() {
+    const email = document.getElementById('login-email').value;
+    const password = document.getElementById('login-password').value;
+    
+    if (!email || !password) {
+        afficherMessage('error', '⚠️ Veuillez remplir tous les champs');
+        return;
+    }
+    
+    const utilisateur = donnees.acteurs.find(acteur => 
+        acteur.email === email && acteur.motDePasse === password
+    );
+    
+    if (utilisateur) {
+        donnees.utilisateurActuel = utilisateur.type;
+        donnees.utilisateurConnecte = utilisateur;
+        localStorage.setItem('utilisateurConnecte', JSON.stringify(utilisateur));
+        afficherMessage('success', '✅ Connexion réussie !');
+        
+        // Rediriger vers la plateforme principale
+        setTimeout(() => {
+            chargerPlateformePrincipale();
+        }, 1000);
+    } else {
+        afficherMessage('error', '❌ Email ou mot de passe incorrect');
+    }
+}
+
+function creerCompte() {
+    // VÉRIFICATION STRICTE - L'EMAIL DOIT ÊTRE VÉRIFIÉ
+    if (!emailVerifie) {
+        afficherMessage('error', '❌ Vous devez vérifier votre adresse email avant de créer le compte. Cliquez sur "Envoyer le code de vérification" et entrez le code reçu.');
+        return;
+    }
+
+    const type = document.getElementById('account-type').value;
+    const email = document.getElementById('create-email').value;
+    const password = document.getElementById('create-password').value;
+    const confirmPassword = document.getElementById('confirm-password').value;
+    
+    if (!type || !email || !password || !confirmPassword) {
+        afficherMessage('error', '⚠️ Veuillez remplir tous les champs obligatoires');
+        return;
+    }
+    
+    if (password !== confirmPassword) {
+        afficherMessage('error', '❌ Les mots de passe ne correspondent pas');
+        return;
+    }
+    
+    // Vérifier si l'email existe déjà
+    const emailExiste = donnees.acteurs.some(acteur => acteur.email === email);
+    if (emailExiste) {
+        afficherMessage('error', '❌ Cet email est déjà utilisé');
+        return;
+    }
+    
+    let nouvelUtilisateur = {
+        id: donnees.acteurs.length + 1,
+        type: type,
+        email: email,
+        motDePasse: password,
+        dateCreation: new Date().toLocaleDateString('fr-FR'),
+        emailVerifie: true
+    };
+    
+    // Ajouter les champs spécifiques selon le type
+    if (type === 'expediteur' || type === 'transporteur' || type === 'destinataire') {
+        const raisonSociale = document.getElementById('company-name').value;
+        const siret = document.getElementById('company-siret').value;
+        const adresse = document.getElementById('company-address').value;
+        const telephone = document.getElementById('company-phone').value;
+        
+        if (!raisonSociale || !siret || !adresse || !telephone) {
+            afficherMessage('error', '⚠️ Veuillez remplir tous les champs entreprise');
+            return;
+        }
+        
+        nouvelUtilisateur.raisonSociale = raisonSociale;
+        nouvelUtilisateur.siret = siret;
+        nouvelUtilisateur.adresse = adresse;
+        nouvelUtilisateur.telephone = telephone;
+    }
+    
+    if (type === 'chauffeur') {
+        const prenom = document.getElementById('driver-firstname').value;
+        const nom = document.getElementById('driver-lastname').value;
+        const permis = document.getElementById('driver-license').value;
+        const adresse = document.getElementById('driver-address').value;
+        const telephone = document.getElementById('driver-phone').value;
+        
+        if (!prenom || !nom || !adresse || !telephone) {
+            afficherMessage('error', '⚠️ Veuillez remplir tous les champs chauffeur');
+            return;
+        }
+        
+        nouvelUtilisateur.raisonSociale = `${prenom} ${nom}`;
+        nouvelUtilisateur.prenom = prenom;
+        nouvelUtilisateur.nom = nom;
+        nouvelUtilisateur.permis = permis;
+        nouvelUtilisateur.adresse = adresse;
+        nouvelUtilisateur.telephone = telephone;
+        nouvelUtilisateur.statut = 'Disponible';
+        nouvelUtilisateur.absences = [];
+        nouvelUtilisateur.demandesEnCours = [];
+        
+        // Ajouter aussi dans la liste des chauffeurs
+        const nouveauChauffeur = {
+            id: donnees.chauffeurs.length + 1,
+            nom: nom,
+            prenom: prenom,
+            transporteurId: null,
+            transporteur: 'À assigner',
+            permis: permis,
+            statut: 'Disponible',
+            absences: [],
+            demandesEnCours: []
+        };
+        donnees.chauffeurs.push(nouveauChauffeur);
+    }
+    
+    donnees.acteurs.push(nouvelUtilisateur);
+    afficherMessage('success', '✅ Compte créé avec succès !');
+    
+// Fermer IMMÉDIATEMENT
+setTimeout(() => {
+    afficherConnexion();
+}, 500); // 0.5 seconde au lieu de 2 secondes
+}
+        
+function afficherConnexion() {
+    document.getElementById('create-account-form').style.display = 'none';
+    document.getElementById('login-form').style.display = 'block';
+    document.getElementById('code-verification-group').style.display = 'none';
+    document.getElementById('email-verification').style.display = 'none';
+    emailVerifie = false;
+    codeVerification = '';
+    cacherMessages();
+    
+    // AJOUTEZ CETTE LIGNE :
+    document.getElementById('account-type').selectedIndex = 0;
+    changerTypeCompte(); // Réinitialiser les champs spécifiques
+}
+
+        function chargerPlateformePrincipale() {
+            document.getElementById('login-container').style.display = 'none';
+            document.getElementById('platform-body').style.display = 'block';
+            
+            // Mettre à jour l'affichage de l'utilisateur connecté
+if (donnees.utilisateurConnecte) {
+    const user = donnees.utilisateurConnecte;
+    let displayName = '';
+    
+    if (user.type === 'admin') {
+        displayName = 'Administrateur';
+    } else if (user.type === 'chauffeur') {
+        displayName = `${user.prenom} ${user.nom}`;
+    } else {
+        // Pour expediteur, transporteur, destinataire
+        displayName = `${user.raisonSociale} (${user.type})`;
+    }
+    
+    document.getElementById('current-user').textContent = displayName;
+}
+
+            
+            // Initialiser la plateforme
+            init();
+        }
+
+        function seDeconnecter() {
+            donnees.utilisateurActuel = null;
+            donnees.utilisateurConnecte = null;
+            localStorage.removeItem('utilisateurConnecte');
+            
+            // Revenir à la page de connexion
+            document.getElementById('platform-body').style.display = 'none';
+            document.getElementById('login-container').style.display = 'block';
+            document.getElementById('login-form').style.display = 'block';
+            document.getElementById('create-account-form').style.display = 'none';
+            cacherMessages();
+            
+            // Réinitialiser les formulaires
+            document.getElementById('login-email').value = '';
+            document.getElementById('login-password').value = '';
+        }
+ // Vérifier si un utilisateur est déjà connecté au chargement
+        document.addEventListener('DOMContentLoaded', function() {
+            const utilisateurSauvegarde = localStorage.getItem('utilisateurConnecte');
+            if (utilisateurSauvegarde) {
+                const utilisateur = JSON.parse(utilisateurSauvegarde);
+                donnees.utilisateurActuel = utilisateur.type;
+                donnees.utilisateurConnecte = utilisateur;
+                chargerPlateformePrincipale();
+            }
+        });
+        
+// FONCTIONS DE BASE EXISTANTES
+function init() {
+            // Vérifier que l'utilisateur est bien connecté
+            if (!donnees.utilisateurConnecte) {
+                seDeconnecter();
+                return;
+            }
+
+            // Mettre à jour le sélecteur d'utilisateur selon le type connecté
+            const userSwitcher = document.getElementById('user-switcher');
+            if (userSwitcher) {
+                userSwitcher.addEventListener('change', changerUtilisateur);
+                
+                // Afficher seulement les options selon le type d'utilisateur
+                const userType = donnees.utilisateurConnecte.type;
+                if (userType !== 'admin') {
+                    userSwitcher.style.display = 'none';
+                }
+            }
+
+            afficherPage('tableaudebord');
+            chargerTournees();
+            if (typeof afficherAlertesAbsences === 'function') {
+                afficherAlertesAbsences();
+            }
+            if (typeof mettreAJourStatutsChauffeurs === 'function') {
+                mettreAJourStatutsChauffeurs();
+            }
+        }
+
+        function aAcces(nomPage) {
+            const user = donnees.utilisateurActuel;
+            
+            // ADMIN : accès complet
+            if (user === 'admin') {
+                return true;
+            }
+            
+            // CHAUFFEUR : accès limité
+            if (user === 'chauffeur') {
+                const pagesAutorisees = ['tableaudebord', 'livraisons', 'tournees', 'planning'];
+                return pagesAutorisees.includes(nomPage);
+            }
+            
+            // EXPÉDITEUR : pas d'accès à la gestion des comptes
+            if (user === 'expediteur') {
+                return nomPage !== 'acteurs';
+            }
+            
+            // TRANSPORTEUR : pas d'accès à la gestion des comptes
+            if (user === 'transporteur') {
+                return nomPage !== 'acteurs';
+            }
+            
+            // DESTINATAIRE : pas d'accès à la gestion des comptes
+            if (user === 'destinataire') {
+                return nomPage !== 'acteurs';
+            }
+            
+            return false;
+        }
+        
+        function afficherPage(nomPage) {
+            const content = document.getElementById('content');
+            
+            if (!aAcces(nomPage)) {
+                content.innerHTML = '<h2>⛔ Accès Refusé</h2><p>Vous n\'avez pas accès à cette page avec votre profil actuel.</p>';
+                return;
+            }
+
+            const pages = {
+                tableaudebord: genererTableauDeBord,
+                acteurs: genererPageActeurs,
+                livraisons: genererPageLivraisons,
+                tournees: genererPageTournees,
+                planning: genererPagePlanning,
+                palettes: genererPagePalettes,
+                vehicules: genererPageVehicules,
+                chauffeurs: genererPageChauffeurs,
+                facturation: genererPageFacturation
+            };
+            content.innerHTML = pages[nomPage] ? pages[nomPage]() : '<h2>Page non trouvée</h2>';
+        }
+
+        function changerUtilisateur() {
+            const userType = document.getElementById('user-switcher').value;
+            donnees.utilisateurActuel = userType;
+            document.getElementById('current-user').textContent = 
+                userType === 'admin' ? 'Administrateur' :
+                userType === 'expediteur' ? 'Expéditeur' :
+                userType === 'transporteur' ? 'Transporteur' :
+                userType === 'destinataire' ? 'Destinataire' : 'Chauffeur';
+            afficherPage('tableaudebord');
+        }
+
+        // FONCTIONS POUR LES MODALS
+        function montrerModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function cacherModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.style.display = 'none';
+                if (modalId === 'modal-details-livraison' || modalId === 'modal-assignation') {
+                    modal.remove();
+                }
+            }
+        }
+
+        // FONCTIONS POUR LES PAGES EXISTANTES
+        function genererTableauDeBord() {
+            const user = donnees.utilisateurActuel;
+            let boutons = '';
+            
+            if (user === 'expediteur' || user === 'admin') {
+                boutons = '<button class="platform-btn btn-success" onclick="montrerModal(\'modal-livraison\')">➕ Créer une Livraison</button>';
+            }
+
+            let nbLivraisons = 0;
+            
+            if (user === 'admin') {
+                nbLivraisons = donnees.livraisons.length;
+            } else if (user === 'expediteur') {
+                nbLivraisons = donnees.livraisons.filter(l => l.expediteurId === 1).length;
+            } else if (user === 'transporteur') {
+                nbLivraisons = donnees.livraisons.filter(l => l.transporteurId === 2).length;
+            } else if (user === 'destinataire') {
+                nbLivraisons = donnees.livraisons.filter(l => l.destinataireId === 3).length;
+            } else if (user === 'chauffeur') {
+                nbLivraisons = donnees.livraisons.filter(l => 
+                    l.chauffeurId === 1 || (l.statut === 'Confirmée' && !l.chauffeurId)
+                ).length;
+            }
+
+            let statsHTML = '';
+            
+            if (user === 'admin') {
+                statsHTML = `
+                    <div class="grid-3">
+                        <div class="card" onclick="afficherPage('acteurs')" style="cursor: pointer;">
+                            <h3>Acteurs</h3>
+                            <div style="font-size: 2em; color: #1e40af;">${donnees.acteurs.length}</div>
+                            <small>Clients enregistrés</small>
+                        </div>
+                        <div class="card" onclick="afficherPage('livraisons')" style="cursor: pointer;">
+                            <h3>Livraisons</h3>
+                            <div style="font-size: 2em; color: #059669;">${nbLivraisons}</div>
+                            <small>Commandes actives</small>
+                        </div>
+                        <div class="card" onclick="afficherPage('palettes')" style="cursor: pointer;">
+                            <h3>Palettes</h3>
+                            <div style="font-size: 2em; color: #d97706;">${donnees.palettes.expediteur1}</div>
+                            <small>En circulation</small>
+                        </div>
+                    </div>
+                `;
+            } else if (user === 'transporteur') {
+                statsHTML = `
+                    <div class="grid-3">
+                        <div class="card" onclick="afficherPage('livraisons')" style="cursor: pointer;">
+                            <h3>Livraisons</h3>
+                            <div style="font-size: 2em; color: #059669;">${nbLivraisons}</div>
+                            <small>En cours</small>
+                        </div>
+                        <div class="card" onclick="afficherPage('vehicules')" style="cursor: pointer;">
+                            <h3>Véhicules</h3>
+                            <div style="font-size: 2em; color: #1e40af;">${donnees.vehicules.length}</div>
+                            <small>Disponibles</small>
+                        </div>
+                        <div class="card" onclick="afficherPage('palettes')" style="cursor: pointer;">
+                            <h3>Palettes en stock</h3>
+                            <div style="font-size: 2em; color: #d97706;">${donnees.palettes.transporteur2}</div>
+                            <small>Dans l'entrepôt</small>
+                        </div>
+                    </div>
+                `;
+            } else if (user === 'chauffeur') {
+                statsHTML = `
+                    <div class="grid-3">
+                        <div class="card" onclick="afficherPage('livraisons')" style="cursor: pointer;">
+                            <h3>Mes Tournées</h3>
+                            <div style="font-size: 2em; color: #059669;">${nbLivraisons}</div>
+                            <small>Assignées</small>
+                        </div>
+                        <div class="card">
+                            <h3>Statut</h3>
+                            <div style="font-size: 2em; color: #7c3aed;">🟢</div>
+                            <small>En service</small>
+                        </div>
+                        <div class="card">
+                            <h3>Véhicule</h3>
+                            <div style="font-size: 2em; color: #1e40af;">🚚</div>
+                            <small>Assigné</small>
+                        </div>
+                    </div>
+                `;
+            } else {
+                statsHTML = `
+                    <div class="grid-3">
+                        <div class="card" onclick="afficherPage('livraisons')" style="cursor: pointer;">
+                            <h3>Mes Livraisons</h3>
+                            <div style="font-size: 2em; color: #059669;">${nbLivraisons}</div>
+                            <small>Actives</small>
+                        </div>
+                        <div class="card" onclick="afficherPage('palettes')" style="cursor: pointer;">
+                            <h3>Palettes</h3>
+                            <div style="font-size: 2em; color: #1e40af;">${user === 'expediteur' ? donnees.palettes.expediteur1 : donnees.palettes.destinataire3}</div>
+                            <small>${user === 'expediteur' ? 'À expédier' : 'En attente'}</small>
+                        </div>
+                        <div class="card">
+                            <h3>Statut</h3>
+                            <div style="font-size: 2em; color: #7c3aed;">📊</div>
+                            <small>Actif</small>
+                        </div>
+                    </div>
+                `;
+            }
+
+            return `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>Tableau de Bord - ${user}</h2>
+                    <div>${boutons}</div>
+                </div>
+                ${statsHTML}
+            `;
+        }
+    // FONCTIONS POUR LES MODALS DE GESTION DE PARC
+    function montrerModal(id) {
+        const modal = document.getElementById(id);
+        if(modal) modal.style.display = 'flex';
+    }
+
+    function ajouterEntretien(vehiculeId) {
+        document.getElementById('vehicule-id-entretien').value = vehiculeId;
+        document.getElementById('date-entretien').value = new Date().toISOString().split('T')[0];
+        montrerModal('modal-entretien');
+    }
+
+    function montrerControles(vehiculeId) {
+        document.getElementById('vehicule-id-controle').value = vehiculeId;
+        document.getElementById('date-controle').value = new Date().toISOString().split('T')[0];
+        montrerModal('modal-controle');
+    }
+
+    function montrerDocuments(vehiculeId) {
+        document.getElementById('vehicule-id-document').value = vehiculeId;
+        document.getElementById('type-document').value = 'Carte grise';
+        document.getElementById('label-type-document').innerText = 'Carte grise';
+        document.getElementById('date-scan').value = new Date().toISOString().split('T')[0];
+        montrerModal('modal-document');
+    }
+
+    function scannerDocument(vehiculeId, type) {
+        document.getElementById('vehicule-id-document').value = vehiculeId;
+        document.getElementById('type-document').value = type;
+        document.getElementById('label-type-document').innerText = type;
+        document.getElementById('date-scan').value = new Date().toISOString().split('T')[0];
+        montrerModal('modal-document');
+    }
+function gererAbsences(chauffeurId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    if (chauffeur) {
+        const modalContent = `
+            <h3>📅 Gérer les absences - ${chauffeur.prenom} ${chauffeur.nom}</h3>
+            
+            <div class="form-group">
+                <label>Type d'absence:</label>
+                <select id="type-absence">
+                    <option value="Congés">Congés</option>
+                    <option value="Maladie">Maladie</option>
+                    <option value="Formation">Formation</option>
+                    <option value="Personnel">Raison personnelle</option>
+                    <option value="Repos">Repos compensateur</option>
+                </select>
+            </div>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Date de début:</label>
+                    <input type="date" id="date-debut-absence">
+                </div>
+                <div class="form-group">
+                    <label>Date de fin:</label>
+                    <input type="date" id="date-fin-absence">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Motif (obligatoire):</label>
+                <textarea id="motif-absence" rows="3" placeholder="Détaillez le motif de l'absence..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="ajouterAbsence(${chauffeurId})">✅ Planifier l'absence</button>
+                <button class="btn" onclick="cacherModal('modal-absences')">❌ Annuler</button>
+            </div>
+        `;
+        
+        const modal = document.createElement('div');
+        modal.id = 'modal-absences';
+        modal.className = 'modal';
+        modal.style.display = 'block';
+        modal.innerHTML = `
+            <div class="modal-content">
+                ${modalContent}
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+}
+
+function demanderRepos(chauffeurId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    if (chauffeur) {
+        const modalContent = `
+            <h3>⏸️ Demander un repos - ${chauffeur.prenom} ${chauffeur.nom}</h3>
+            
+            <div class="form-group">
+                <label>Type de demande:</label>
+                <select id="type-demande">
+                    <option value="Repos">Repos compensateur</option>
+                    <option value="Congés">Congés payés</option>
+                    <option value="Exceptionnel">Absence exceptionnelle</option>
+                </select>
+            </div>
+            
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Date de début:</label>
+                    <input type="date" id="date-debut-demande">
+                </div>
+                <div class="form-group">
+                    <label>Date de fin:</label>
+                    <input type="date" id="date-fin-demande">
+                </div>
+            </div>
+            
+            <div class="form-group">
+                <label>Motif (obligatoire):</label>
+                <textarea id="motif-demande" rows="3" placeholder="Expliquez la raison de votre demande..."></textarea>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="soumettreDemande(${chauffeurId})">📨 Soumettre la demande</button>
+                <button class="btn" onclick="cacherModal('modal-demande-repos')">❌ Annuler</button>
+            </div>
+        `;
+        
+        const modal = document.createElement('div');
+        modal.id = 'modal-demande-repos';
+        modal.className = 'modal';
+        modal.style.display = 'block';
+        modal.innerHTML = `
+            <div class="modal-content">
+                ${modalContent}
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+}
+
+function ajouterAbsence(chauffeurId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    const type = document.getElementById('type-absence').value;
+    const dateDebut = document.getElementById('date-debut-absence').value;
+    const dateFin = document.getElementById('date-fin-absence').value;
+    const motif = document.getElementById('motif-absence').value;
+
+    if (!motif) {
+        alert('⚠️ Veuillez saisir un motif pour cette absence');
+        return;
+    }
+
+    const nouvelleAbsence = {
+        id: Date.now(),
+        type: type,
+        dateDebut: dateDebut,
+        dateFin: dateFin,
+        motif: motif,
+        statut: 'Validé',
+        dateDemande: new Date().toLocaleDateString('fr-FR')
+    };
+
+    if (!chauffeur.absences) {
+        chauffeur.absences = [];
+    }
+    chauffeur.absences.push(nouvelleAbsence);
+    
+    // Mettre à jour le statut du chauffeur si l'absence commence aujourd'hui
+    const aujourdhui = new Date().toISOString().split('T')[0];
+    if (dateDebut <= aujourdhui && dateFin >= aujourdhui) {
+        chauffeur.statut = 'Absent';
+    }
+
+    cacherModal('modal-absences');
+    afficherPage('chauffeurs');
+    alert('✅ Absence planifiée avec succès !');
+}
+
+function soumettreDemande(chauffeurId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    const type = document.getElementById('type-demande').value;
+    const dateDebut = document.getElementById('date-debut-demande').value;
+    const dateFin = document.getElementById('date-fin-demande').value;
+    const motif = document.getElementById('motif-demande').value;
+
+    if (!motif) {
+        alert('⚠️ Veuillez saisir un motif pour votre demande');
+        return;
+    }
+
+    const nouvelleDemande = {
+        id: Date.now(),
+        type: type,
+        dateDebut: dateDebut,
+        dateFin: dateFin,
+        motif: motif,
+        statut: 'En attente',
+        dateDemande: new Date().toLocaleDateString('fr-FR')
+    };
+
+    if (!chauffeur.demandesEnCours) {
+        chauffeur.demandesEnCours = [];
+    }
+    chauffeur.demandesEnCours.push(nouvelleDemande);
+
+    cacherModal('modal-demande-repos');
+    afficherPage('chauffeurs');
+    alert('✅ Demande soumise ! En attente de validation.');
+}
+
+function validerDemande(chauffeurId, demandeId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    const demande = chauffeur.demandesEnCours.find(d => d.id === demandeId);
+    
+    if (demande) {
+        // Déplacer vers les absences validées
+        if (!chauffeur.absences) {
+            chauffeur.absences = [];
+        }
+        
+        const absenceValidee = {
+            ...demande,
+            statut: 'Validé'
+        };
+        chauffeur.absences.push(absenceValidee);
+        
+        // Supprimer de la liste des demandes
+        chauffeur.demandesEnCours = chauffeur.demandesEnCours.filter(d => d.id !== demandeId);
+        
+        afficherPage('chauffeurs');
+        alert('✅ Demande validée !');
+    }
+}
+
+function refuserDemande(chauffeurId, demandeId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    
+    if (confirm('Êtes-vous sûr de vouloir refuser cette demande ?')) {
+        chauffeur.demandesEnCours = chauffeur.demandesEnCours.filter(d => d.id !== demandeId);
+        afficherPage('chauffeurs');
+        alert('❌ Demande refusée.');
+    }
+}
+
+function supprimerAbsence(chauffeurId, absenceId) {
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    
+    if (confirm('Êtes-vous sûr de vouloir supprimer cette absence ?')) {
+        chauffeur.absences = chauffeur.absences.filter(a => a.id !== absenceId);
+        
+        // Vérifier si le chauffeur redevient disponible
+        const aujourdhui = new Date().toISOString().split('T')[0];
+        const aEncoreAbsence = chauffeur.absences.some(a => a.dateDebut <= aujourdhui && a.dateFin >= aujourdhui);
+        
+        if (!aEncoreAbsence) {
+            chauffeur.statut = 'Disponible';
+        }
+        
+        afficherPage('chauffeurs');
+        alert('✅ Absence supprimée !');
+    }
+}
+
+function genererPageVehicules() {
+    const user = donnees.utilisateurActuel;
+    let boutonAjout = '';
+
+    if (user === 'admin' || user === 'transporteur') {
+        boutonAjout = '<button class="btn btn-success" onclick="montrerModalVehicule()">➕ Ajouter un Véhicule</button>';
+    }
+
+    return `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>🚛 Gestion de Parc Automobile</h2>
+            <div>${boutonAjout}</div>
+        </div>
+
+        <p>${donnees.vehicules.length} véhicule(s) dans le parc</p>
+
+        ${donnees.vehicules.map(vehicule => `
+            <div class="card" data-id="${vehicule.id}" style="margin-bottom: 20px;">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div style="flex: 1;">
+                        <h3>${vehicule.immatriculation} - ${vehicule.marque} ${vehicule.modele}</h3>
+                        <p><strong>Transporteur:</strong> ${vehicule.transporteur}</p>
+                        <p><strong>Type:</strong> ${vehicule.type} | <strong>Capacité:</strong> ${vehicule.capacite}</p>
+                        <p><strong>Châssis:</strong> ${vehicule.numeroChassis} | <strong>Statut:</strong> ${vehicule.statut}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <div class="btn btn-sm" onclick="montrerEntretiens(${vehicule.id})">📋 Entretiens</div>
+                        <div class="btn btn-sm" onclick="montrerControles(${vehicule.id})">⚙️ Contrôles</div>
+                        <div class="btn btn-sm" onclick="montrerDocuments(${vehicule.id})">📄 Documents</div>
+                    </div>
+                </div>
+
+                <!-- SECTION ENTRETIENS -->
+                <div class="section-entretien" style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px; display:none;">
+                    <h4>🔧 Historique des Entretiens</h4>
+                    ${vehicule.entretiens.map(entretien => `
+                        <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                            <div>
+                                <strong>${entretien.type}</strong> - ${entretien.date}
+                                <br><small>${entretien.prestataire} • ${entretien.kilometrage} km</small>
+                            </div>
+                            <div style="color: #059669; font-weight: bold;">${entretien.cout}€</div>
+                        </div>
+                    `).join('')}
+                    <button class="btn btn-sm" style="margin-top: 10px;" onclick="ajouterEntretien(${vehicule.id})">➕ Nouvel entretien</button>
+                </div>
+
+                <!-- SECTION CONTRÔLES -->
+                <div class="section-controle" style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px; display:none;">
+                    <h4>📋 Planning des Contrôles</h4>
+                    <div class="grid-3" style="grid-template-columns: 1fr 1fr 1fr; gap: 10px; margin-top: 10px;">
+                        ${vehicule.controles.map(controle => `
+                            <div class="card" style="padding: 10px; text-align: center;">
+                                <div style="font-size: 0.9em; font-weight: bold;">${controle.type}</div>
+                                <div style="font-size: 0.8em; color: #059669;">Dernier: ${controle.date}</div>
+                                <div style="font-size: 0.8em; color: #d97706;">Prochain: ${controle.dateProchaine}</div>
+                                <div style="font-size: 0.7em; padding: 2px 6px; background: #dcfce7; color: #166534; border-radius: 8px; margin-top: 5px;">${controle.statut}</div>
+                            </div>
+                        `).join('')}
+                    </div>
+                    <button class="btn btn-sm" style="margin-top: 10px;" onclick="ajouterControle(${vehicule.id})">➕ Nouveau contrôle</button>
+                </div>
+
+                <!-- SECTION DOCUMENTS -->
+                <div class="section-documents" style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px; display:none;">
+                    <h4>📄 Documents du Véhicule</h4>
+                    ${vehicule.documents.map(doc => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0;">
+                            <div>
+                                <strong>${doc.type}</strong>
+                                <br><small>Scanné le ${doc.dateScan || '–'}</small>
+                            </div>
+                            <div>
+                                <span style="padding: 2px 8px; background: #dcfce7; color: #166534; border-radius: 8px; font-size: 0.8em;">${doc.statut}</span>
+                                <button class="btn btn-sm" onclick="scannerDocument(${vehicule.id}, '${doc.type}')">📸 Scanner</button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+        `).join('')}
+    `;
+}
+function genererPageChauffeurs() {
+    const user = donnees.utilisateurActuel;
+    let boutonAjout = '';
+
+    // Alerte absences prochaines
+    let alerteHTML = '';
+    if (typeof verifierAbsencesProchaines === 'function') {
+        const absencesProchaines = verifierAbsencesProchaines();
+        if (absencesProchaines && absencesProchaines.length > 0) {
+            alerteHTML = `
+                <div style="background: #fef3c7; border: 1px solid #f59e0b; border-radius: 8px; padding: 15px; margin-bottom: 20px;">
+                    <h4 style="color: #d97706; margin: 0 0 10px 0;">⚠️ ABSENCES PROCHAINES</h4>
+                    <p style="margin: 0; color: #92400e;">${absencesProchaines.length} absence(s) programmée(s) dans les 7 prochains jours</p>
+                </div>
+            `;
+        }
+    }
+
+    // Bouton d'ajout visible seulement pour admin / transporteur
+    if (user === 'admin' || user === 'transporteur') {
+        boutonAjout = `<button class="btn btn-success" onclick="montrerModal('modal-chauffeur')">➕ Ajouter un Chauffeur</button>`;
+    }
+
+    return `
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h2>👤 Gestion des Chauffeurs</h2>
+            <div>${boutonAjout}</div>
+        </div>
+
+        ${alerteHTML}
+
+        <p>${donnees.chauffeurs.length} chauffeur(s) trouvé(s)</p>
+
+        ${donnees.chauffeurs.map(chauffeur => `
+            <div class="card">
+                <div style="display: flex; justify-content: space-between; align-items: start;">
+                    <div style="flex: 1;">
+                        <h3>${chauffeur.prenom} ${chauffeur.nom}</h3>
+                        <p><strong>Transporteur:</strong> ${chauffeur.transporteur}</p>
+                        <p>
+                            <strong>Permis:</strong> ${chauffeur.permis} | 
+                            <strong>Statut:</strong> 
+                            <span class="statut-badge ${chauffeur.statut === 'Disponible' ? 'statut-en-route' : 'statut-en-attente'}">
+                                ${chauffeur.statut}
+                            </span>
+                        </p>
+                    </div>
+                    <div style="text-align: right;">
+                        <button class="btn btn-sm" onclick="gererAbsences(${chauffeur.id})">📅 Gérer les absences</button>
+                        <button class="btn btn-sm" onclick="demanderRepos(${chauffeur.id})">⏸️ Demander un repos</button>
+                    </div>
+                </div>
+
+                <!-- SECTION ABSENCES PLANIFIÉES -->
+                <div style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+                    <h4>📅 Absences planifiées</h4>
+                    ${
+                        chauffeur.absences && chauffeur.absences.length > 0 
+                        ? chauffeur.absences.map(absence => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                                <div>
+                                    <strong>${absence.type}</strong> - Du ${absence.dateDebut} au ${absence.dateFin}
+                                    <br><small>Motif: ${absence.motif}</small>
+                                </div>
+                                <div>
+                                    <span class="statut-badge ${absence.statut === 'Validé' ? 'statut-en-route' : 'statut-terminee'}">
+                                        ${absence.statut}
+                                    </span>
+                                    <button class="btn btn-sm btn-danger" onclick="supprimerAbsence(${chauffeur.id}, ${absence.id})">🗑️</button>
+                                </div>
+                            </div>
+                        `).join('') 
+                        : '<p style="color: #6b7280; font-style: italic;">Aucune absence planifiée</p>'
+                    }
+                </div>
+
+                <!-- SECTION DEMANDES EN ATTENTE -->
+                <div style="margin-top: 15px; border-top: 1px solid #e5e7eb; padding-top: 15px;">
+                    <h4>⏳ Demandes en attente</h4>
+                    ${
+                        chauffeur.demandesEnCours && chauffeur.demandesEnCours.length > 0 
+                        ? chauffeur.demandesEnCours.map(demande => `
+                            <div style="display: flex; justify-content: space-between; align-items: center; padding: 8px 0; border-bottom: 1px solid #f3f4f6;">
+                                <div>
+                                    <strong>${demande.type}</strong> - ${demande.dateDebut}
+                                    ${demande.dateFin !== demande.dateDebut ? `au ${demande.dateFin}` : ''}
+                                    <br><small>Motif: ${demande.motif}</small>
+                                    <br><small>Demandé le: ${demande.dateDemande}</small>
+                                </div>
+                                <div>
+                                    <span class="statut-badge statut-en-attente">${demande.statut}</span>
+                                    ${
+                                        user === 'admin' || user === 'transporteur' 
+                                        ? `
+                                            <button class="btn btn-sm btn-success" onclick="validerDemande(${chauffeur.id}, ${demande.id})">✅</button>
+                                            <button class="btn btn-sm btn-danger" onclick="refuserDemande(${chauffeur.id}, ${demande.id})">❌</button>
+                                        `
+                                        : ''
+                                    }
+                                </div>
+                            </div>
+                        `).join('') 
+                        : '<p style="color: #6b7280; font-style: italic;">Aucune demande en attente</p>'
+                    }
+                </div>
+            </div>
+        `).join('')}
+    `;
+}
+
+        function genererPagePalettes() {
+            return `<h2>📦 Palettes</h2><p>Page des palettes</p>`;
+        }
+
+        function genererPageFacturation() {
+            return `<h2>💰 Facturation</h2><p>Page de facturation</p>`;
+        }
+// FONCTIONS POUR LA GESTION DES LIVRAISONS
+        function creerLivraison() {
+            // Récupérer les destinataires sélectionnés
+            const destinatairesSelectionnes = [];
+            if (document.getElementById('dest1').checked) destinatairesSelectionnes.push(3);
+            if (document.getElementById('dest2').checked) destinatairesSelectionnes.push(4);
+            if (document.getElementById('dest3').checked) destinatairesSelectionnes.push(5);
+
+            if (destinatairesSelectionnes.length === 0) {
+                alert('⚠️ Veuillez sélectionner au moins un destinataire');
+                return;
+            }
+
+            // Créer une livraison par destinataire ou une tournée
+            destinatairesSelectionnes.forEach((destId, index) => {
+                const nouvelleLivraison = {
+                    id: donnees.livraisons.length + 1 + index,
+                    reference: `LIV2024-${String(donnees.livraisons.length + 1 + index).padStart(4, '0')}`,
+                    expediteurId: 1,
+                    expediteur: 'SARL France Export',
+                    destinataireId: destId,
+                    destinataire: destId === 3 ? 'SuperMarché Pro' : destId === 4 ? 'Hyper U' : 'Carrefour Market',
+                    transporteurId: 2,
+                    transporteur: 'Transports Dupont',
+                    nbPalettes: Math.floor(document.getElementById('palettes-livraison').value / destinatairesSelectionnes.length),
+                    poids: Math.floor(document.getElementById('poids-livraison').value / destinatairesSelectionnes.length),
+                    tarif: Math.floor(document.getElementById('tarif-livraison').value / destinatairesSelectionnes.length),
+                    natureProduits: document.getElementById('produits-livraison').value,
+                    consignes: document.getElementById('consignes-livraison').value,
+                    statut: 'En attente',
+                    dateCreation: new Date().toLocaleDateString('fr-FR'),
+                    tournee: destinatairesSelectionnes.length > 1,
+                    tourneeId: destinatairesSelectionnes.length > 1 ? donnees.livraisons.length + 1 : null
+                };
+                
+                donnees.livraisons.push(nouvelleLivraison);
+            });
+
+            cacherModal('modal-livraison');
+            afficherPage('livraisons');
+            alert(`✅ ${destinatairesSelectionnes.length} livraison(s) créée(s) avec succès !`);
+        }
+        function assignerTransporteur(livraisonId) {
+const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        livraison.transporteurId = 2;
+        livraison.transporteur = 'Transports Dupont';
+        livraison.statut = 'Confirmée';
+        
+        // Fermer la modal actuelle et rouvrir avec le nouveau statut
+        cacherModal('modal-details-livraison');
+        
+        // Rouvrir directement les détails pour assigner véhicule/chauffeur
+        setTimeout(() => {
+            voirDetailsLivraison(livraisonId);
+            // Lancer directement l'assignation véhicule/chauffeur
+            setTimeout(() => {
+                assignerVehiculeChauffeur(livraisonId);
+            }, 100);
+       }, 100);       
+        alert('✅ Tournée prise en charge ! Vous pouvez maintenant assigner un véhicule et un chauffeur.');
+    }
+}
+        function preparerChargement(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            if (livraison) {
+                livraison.numeroQuai = Math.floor(Math.random() * 20) + 1;
+                livraison.statut = 'Chargement';
+                
+                afficherPage('livraisons');
+                alert(`📋 Chargement préparé - Quai ${livraison.numeroQuai} assigné`);
+            }
+        }
+
+function validerChargement(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        // Demander les réserves et observations
+        const reserves = prompt("Réserves et observations du chauffeur (facultatif) :\n\nExemples:\n- Palette endommagée\n- Emballage déchiré\n- Produit manquant\n- Température non conforme", "");
+        
+        livraison.confirmationChargement = true;
+        livraison.dateChargement = new Date().toLocaleDateString('fr-FR');
+        livraison.statut = 'En route';
+        
+        if (reserves && reserves.trim() !== '') {
+         livraison.reservesChargement = reserves.trim();
+            alert('✅ Chargement validé avec réserves !\n\nRéserves enregistrées:\n' + reserves);
+        } else {
+            livraison.reservesChargement = 'Aucune réserve';
+            alert('✅ Chargement validé sans réserve !');
+        }
+        
+        // Générer automatiquement le bordereau pour le chauffeur
+        genererBordereauChargementPourChauffeur(livraisonId);
+        
+        cacherModal('modal-details-livraison');
+        afficherPage('livraisons');
+    }
+}
+
+function genererBordereauChargementPourChauffeur(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison && livraison.confirmationChargement) {
+        const expediteur = donnees.acteurs.find(a => a.id === livraison.expediteurId);
+        const destinataire = donnees.acteurs.find(a => a.id === livraison.destinataireId);
+        
+        const bordereauContent = `
+            <html>
+                <head>
+                    <title>Bordereau Chauffeur - ${livraison.reference}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h1, h2 { color: #1e40af; text-align: center; }
+                        .section { margin: 15px 0; padding: 10px; border: 1px solid #ddd; }
+                        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+                        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+                        .signature { height: 60px; border-bottom: 1px solid #000; margin-top: 40px; }
+                        .header { border-bottom: 2px solid #1e40af; padding-bottom: 10px; margin-bottom: 20px; }
+                        .reserves { background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin: 10px 0; }
+
+/* Styles pour la vérification d'email */
+.email-verifie {
+    border-color: #059669 !important;
+    background-color: #f0fdf4 !important;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+    font-size: 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}                    
+</style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>BORDEREAU CHAUFFEUR - EXEMPLAIRE CONDUCTEUR</h1>
+                        <p><strong>Référence:</strong> ${livraison.reference} | <strong>Date chargement:</strong> ${livraison.dateChargement}</p>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="section">
+                            <h3>EXPÉDITEUR</h3>
+                            <p><strong>${expediteur.raisonSociale}</strong></p>
+                            <p>${expediteur.adresse}</p>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>DESTINATAIRE</h3>
+                            <p><strong>${destinataire.raisonSociale}</strong></p>
+                            <p>${destinataire.adresse}</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>INFORMATIONS TRANSPORT</h3>
+                        <p><strong>Transporteur:</strong> ${livraison.transporteur}</p>
+                        <p><strong>Chauffeur:</strong> ${livraison.chauffeur}</p>
+                        <p><strong>Véhicule:</strong> ${livraison.vehicule}</p>
+                        <p><strong>Lieu chargement:</strong> ${expediteur.adresse} (Quai ${livraison.numeroQuai})</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>MARCHANDISE CHARGÉE</h3>
+                        <table>
+                            <tr>
+                                <th>Produits</th>
+                                <th>Palettes</th>
+                                <th>Poids</th>
+                            </tr>
+                            <tr>
+                                <td>${livraison.natureProduits}</td>
+                                <td>${livraison.nbPalettes}</td>
+                                <td>${livraison.poids} kg</td>
+                            </tr>
+                        </table>
+                        <p><strong>Consignes:</strong> ${livraison.consignes}</p>
+                        <!-- TARIF SUPPRIMÉ DU BORDEREAU CHAUFFEUR -->
+                    </div>
+
+                    ${livraison.reservesChargement && livraison.reservesChargement !== 'Aucune réserve' ? `
+                    <div class="reserves">
+                        <h3>⚠️ RÉSERVES ET OBSERVATIONS DU CHAUFFEUR</h3>
+                        <p><strong>${livraison.reservesChargement}</strong></p>
+                        <p><em>Enregistré le ${livraison.dateChargement} par ${livraison.chauffeur}</em></p>
+                    </div>
+                    ` : ''}
+
+                    <div class="section">
+                        <h3>CONFIRMATION CHARGEMENT</h3>
+                        <p><strong>Chargement validé le:</strong> ${livraison.dateChargement}</p>
+                        <p><strong>Par le chauffeur:</strong> ${livraison.chauffeur}</p>
+                        <div class="signature"></div>
+                        <p>Signature chauffeur: _________________________</p>
+                    </div>
+
+                    <div style="text-align: center; margin-top: 30px; font-size: 12px; color: #666;">
+                        <p><strong>DOCUMENT À CONSERVER PENDANT LE TRANSPORT - EXEMPLAIRE CHAUFFEUR</strong></p>
+                        <p>En cas de contrôle ou de litige, présenter ce document</p>
+                    </div>
+               <!-- MODAL AJOUT CHAUFFEUR -->
+<div id="modal-chauffeur" class="modal">
+    <div class="modal-content">
+        <h3>👤 Ajouter un Chauffeur</h3>
+        
+        <div class="form-group">
+            <label>Nom:</label>
+            <input type="text" id="nom-chauffeur" placeholder="Martin">
+        </div>
+        
+        <div class="form-group">
+            <label>Prénom:</label>
+            <input type="text" id="prenom-chauffeur" placeholder="Jean">
+        </div>
+        
+        <div class="form-group">
+            <label>Permis:</label>
+            <select id="permis-chauffeur">
+                <option value="B">B - Voiture</option>
+                <option value="C">C - Poids lourd</option>
+                <option value="C+E">C+E - Semi-remorque</option>
+                <option value="D">D - Transport en commun</option>
+            </select>
+        </div>
+        
+        <div class="form-group">
+            <label>Transporteur:</label>
+            <select id="transporteur-chauffeur">
+                <option value="2">Transports Dupont</option>
+            </select>
+        </div>
+        
+        <div style="display: flex; gap: 10px; margin-top: 20px;">
+            <button class="btn btn-success" onclick="creerChauffeur()">✅ Créer le Chauffeur</button>
+            <button class="btn" onclick="cacherModal('modal-chauffeur')">❌ Annuler</button>
+        </div>
+    </div>
+</div>
+ 
+</body>
+            </html>
+        `;
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(bordereauContent);
+        printWindow.document.close();
+        
+        alert('📄 Bordereau chauffeur généré ! Vous pouvez l\'imprimer depuis la fenêtre qui s\'est ouverte.');
+    }
+}
+       function confirmerLivraisonChauffeur(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            if (livraison) {
+                livraison.confirmationLivraisonChauffeur = true;
+                livraison.dateLivraison = new Date().toLocaleDateString('fr-FR');
+                livraison.statut = 'Livraison en cours';
+                
+                afficherPage('livraisons');
+                alert('📦 Livraison confirmée par le chauffeur. En attente de confirmation du destinataire.');
+            }
+        }
+
+        function confirmerLivraisonDestinataire(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            if (livraison) {
+                livraison.confirmationLivraisonDestinataire = true;
+                livraison.palettesRendues = livraison.nbPalettes;
+                livraison.statut = 'Livrée';
+                
+                // Générer la facture
+                genererFacture(livraison);
+                
+                afficherPage('livraisons');
+                alert('✅ Livraison confirmée ! Facture générée.');
+            }
+        }
+
+        function genererFacture(livraison) {
+            const nouvelleFacture = {
+                id: donnees.factures.length + 1,
+                reference: `FAC2024-${String(donnees.factures.length + 1).padStart(4, '0')}`,
+                livraisonId: livraison.id,
+                livraisonReference: livraison.reference,
+                expediteur: livraison.expediteur,
+                destinataire: livraison.destinataire,
+                transporteur: livraison.transporteur,
+                montant: livraison.tarif,
+                dateCreation: new Date().toLocaleDateString('fr-FR'),
+                statut: 'À payer'
+            };
+            
+            donnees.factures.push(nouvelleFacture);
+            livraison.factureGeneree = true;
+        }
+
+function voirDetailsLivraison(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    const user = donnees.utilisateurActuel;
+    if (livraison) {
+        let detailsHTML = `
+            <h3>Détails de la livraison ${livraison.reference}</h3>
+            <div class="card">
+                <h4>Informations générales</h4>
+                <p><strong>Statut:</strong> <span class="statut-badge statut-${livraison.statut.toLowerCase().replace(' ', '-')}">${livraison.statut}</span></p>
+                <p><strong>Expéditeur:</strong> ${livraison.expediteur}</p>
+                <p><strong>Destinataire:</strong> ${livraison.destinataire}</p>
+                <p><strong>Transporteur:</strong> ${livraison.transporteur || 'Non assigné'}</p>
+                ${livraison.chauffeur ? `<p><strong>Chauffeur:</strong> ${livraison.chauffeur}</p>` : ''}
+                ${livraison.vehicule ? `<p><strong>Véhicule:</strong> ${livraison.vehicule}</p>` : ''}
+            </div>
+            
+            <div class="card">
+                <h4>Détails de la marchandise</h4>
+                <p><strong>Nombre de palettes:</strong> ${livraison.nbPalettes}</p>
+                <p><strong>Poids:</strong> ${livraison.poids} kg</p>
+                <p><strong>Nature des produits:</strong> ${livraison.natureProduits}</p>
+                <p><strong>Consignes:</strong> ${livraison.consignes}</p>
+                ${user !== 'chauffeur' ? `<p><strong>Tarif:</strong> ${livraison.tarif} €</p>` : ''}
+            </div>
+
+            <!-- Actions selon le profil utilisateur -->
+            <div class="card">
+                <h4>Actions</h4>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                    ${user === 'transporteur' && livraison.statut === 'En attente' ? 
+                        '<button class="btn btn-success" onclick="assignerTransporteur(' + livraison.id + ')">✅ Prendre en charge</button>' 
+                    : ''}
+                    
+                    ${user === 'transporteur' && livraison.statut === 'Confirmée' ? 
+                        '<button class="btn btn-success" onclick="assignerVehiculeChauffeur(' + livraison.id + ')">🚚 Assigner chauffeur</button>' 
+                    : ''}
+                    
+                    ${user === 'transporteur' && livraison.statut === 'Confirmée' && livraison.chauffeurId ? 
+                        '<div style="display: flex; gap: 10px; align-items: center;"><button class="btn btn-warning">⏳ En attente</button><span style="color: #d97706; font-weight: bold;">' + livraison.chauffeur + ' doit confirmer</span></div>' 
+                    : ''}
+                    
+                    ${user === 'transporteur' && livraison.statut === 'En cours' && livraison.chauffeurId ? 
+                        '<div style="display: flex; gap: 10px; align-items: center;"><button class="btn btn-success" style="background: #059669;">✅ Chauffeur notifié</button><span style="color: #059669; font-weight: bold;">' + livraison.chauffeur + ' a confirmé</span></div>' 
+                    : ''}
+                    
+                    ${user === 'chauffeur' && livraison.statut === 'Confirmée' && livraison.chauffeurId === 1 ? 
+                        '<button class="btn btn-success" onclick="prendreEnChargeTournee(' + livraison.id + ')">🚚 Confirmer prise en charge</button>' 
+                    : ''}
+                    
+                    ${user === 'expediteur' && livraison.statut === 'En cours' && !livraison.numeroQuai ? 
+                        '<button class="btn btn-warning" onclick="assignerNumeroQuai(' + livraison.id + ')">📍 Assigner quai</button>' 
+                    : ''}
+                    ${user === 'chauffeur' && livraison.statut === 'En cours' ? 
+                        '<button class="btn btn-success" onclick="validerChargement(' + livraison.id + ')">📦 Valider le chargement</button>' 
+                    : ''}
+                    ${user === 'expediteur' && livraison.numeroQuai ? 
+                        '<button class="btn btn-success" style="background: #059669;">📍 Quai ' + livraison.numeroQuai + ' assigné</button>' 
+                    : ''}
+                </div>
+            </div>
+
+${user === 'expediteur' ? `
+    <div class="card">
+        <h4>Documents</h4>
+        <div class="document-section">
+            <h5>Bordereau de chargement</h5>
+            <p>Document à imprimer pour le chargement</p>
+            <div class="document-actions">
+                <button class="btn btn-sm" onclick="genererBordereauChargement(${livraison.id})">📄 Générer</button>
+                <button class="btn btn-sm" onclick="imprimerBordereauChargement(${livraison.id})">🖨️ Imprimer</button>
+            </div>
+        </div>
+        
+        <div class="document-section">
+            <h5>Lettre de voiture</h5>
+            <p>Document conforme aux règles européennes</p>
+            <div class="document-actions">
+                <button class="btn btn-sm" onclick="genererLettreVoiture(${livraison.id})">📄 Générer</button>
+                <button class="btn btn-sm" onclick="imprimerLettreVoiture(${livraison.id})">🖨️ Imprimer</button>
+            </div>
+        </div>
+    </div>
+` : user === 'chauffeur' && livraison.bordereauGenere ? `
+    <div class="card">
+        <h4>📄 Documents Reçus</h4>
+        <div class="document-section">
+            <h5>Bordereau de chargement</h5>
+            <p>Document fourni par l'expéditeur</p>
+            <div class="document-actions">
+                <button class="btn btn-sm" onclick="consulterBordereauChargement(${livraison.id})">👁️ Consulter</button>
+            </div>
+        </div>
+        ${livraison.lettreVoitureGeneree ? `
+        <div class="document-section">
+            <h5>Lettre de voiture</h5>
+            <p>Document final validé</p>
+            <div class="document-actions">
+                <button class="btn btn-sm" onclick="consulterLettreVoiture(${livraison.id})">👁️ Consulter</button>
+            </div>
+        </div>
+        ` : ''}
+    </div>
+` : user === 'chauffeur' ? `
+    <div class="card">
+        <h4>Documents</h4>
+        <p>⏳ En attente du bordereau de chargement de l'expéditeur</p>
+    </div>
+` : `
+    <div class="card">
+        <h4>Documents</h4>
+        <p>⚠️ Seul le remettant (expéditeur) peut générer les documents de chargement</p>
+    </div>
+`}
+
+            <div class="card">
+                <h4>Progression de la livraison</h4>
+                <div class="timeline">
+                    <div class="timeline-step">
+                        <div class="timeline-icon ${livraison.statut !== 'En attente' ? 'active' : ''}">1</div>
+                        <div class="timeline-content">
+                            <strong>Création</strong>
+                            <p>Livraison créée le ${livraison.dateCreation}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-icon ${['Confirmée', 'En cours', 'Chargement', 'En route', 'Livraison en cours', 'Livrée'].includes(livraison.statut) ? 'active' : ''}">2</div>
+                        <div class="timeline-content">
+                            <strong>Transporteur assigné</strong>
+                            <p>${livraison.transporteur ? `Assigné à ${livraison.transporteur}` : 'En attente'}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-icon ${['En cours', 'Chargement', 'En route', 'Livraison en cours', 'Livrée'].includes(livraison.statut) ? 'active' : ''}">3</div>
+                        <div class="timeline-content">
+                            <strong>Véhicule et chauffeur</strong>
+                            <p>${livraison.chauffeur ? `Assigné à ${livraison.chauffeur} (${livraison.vehicule})` : 'En attente'}</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step">
+                        <div class="timeline-icon ${['Chargement', 'En route', 'Livraison en cours', 'Livrée'].includes(livraison.statut) ? 'active' : ''}">4</div>
+                        <div class="timeline-content">
+                            <strong>Chargement</strong>
+                            <p>${livraison.confirmationChargement ? `Validé le ${livraison.dateChargement}` : 'En attente'} ${livraison.numeroQuai ? `- Quai ${livraison.numeroQuai}` : ''}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        const modalContent = document.createElement('div');
+        modalContent.className = 'modal-content';
+        modalContent.innerHTML = `
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h2>Détails de la livraison</h2>
+                <button class="btn" onclick="cacherModal('modal-details-livraison')">❌ Fermer</button>
+            </div>
+            ${detailsHTML}
+        `;
+
+        const modal = document.createElement('div');
+        modal.id = 'modal-details-livraison';
+        modal.className = 'modal';
+        modal.style.display = 'block';
+        modal.appendChild(modalContent);
+        document.body.appendChild(modal);
+    }
+}
+        // Fonctions pour les documents
+
+        function imprimerBordereauChargement(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            if (livraison) {
+                alert(`🖨️ Impression du bordereau de chargement pour ${livraison.reference}`);
+            }
+        }
+
+// Fonctions pour les documents
+// Fonctions pour les documents
+
+function genererBordereauChargement(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        if (!livraison.numeroQuai) {
+            alert('⚠️ Veuillez d\'abord assigner un numéro de quai');
+            return;
+        }
+        
+        const expediteur = donnees.acteurs.find(a => a.id === livraison.expediteurId);
+        const destinataire = donnees.acteurs.find(a => a.id === livraison.destinataireId);
+        
+        const bordereauContent = `
+            <html>
+                <head>
+                    <title>Bordereau de Chargement - ${livraison.reference}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h1, h2 { color: #1e40af; text-align: center; }
+                        .section { margin: 15px 0; padding: 10px; border: 1px solid #ddd; border-radius: 10px; }
+                        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+                        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+                        .signature { height: 60px; border-bottom: 1px solid #000; margin-top: 40px; }
+                        .header { border-bottom: 2px solid #1e40af; padding-bottom: 10px; margin-bottom: 20px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>BORDEREAU DE CHARGEMENT</h1>
+                        <p><strong>Référence:</strong> ${livraison.reference} | <strong>Date:</strong> ${new Date().toLocaleDateString('fr-FR')}</p>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="section">
+                            <h3>INFORMATIONS EXPÉDITEUR</h3>
+                            <p><strong>${expediteur.raisonSociale}</strong></p>
+                            <p>${expediteur.adresse}</p>
+                            <p>SIRET: ${expediteur.siret}</p>
+                            <p>Tél: ${expediteur.telephone}</p>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>INFORMATIONS DESTINATAIRE</h3>
+                            <p><strong>${destinataire.raisonSociale}</strong></p>
+                            <p>${destinataire.adresse}</p>
+                            <p>Tél: ${destinataire.telephone}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="section">
+                            <h3>LIEU DE CHARGEMENT</h3>
+                            <p><strong>${expediteur.raisonSociale}</strong></p>
+                            <p>${expediteur.adresse}</p>
+                            <p><strong>Quai:</strong> ${livraison.numeroQuai}</p>
+                            <p><strong>Date:</strong> ${new Date().toLocaleDateString('fr-FR')}</p>
+                        </div>
+                        
+                        <div class="section">
+                            <h3>LIEU DE LIVRAISON</h3>
+                            <p><strong>${destinataire.raisonSociale}</strong></p>
+                            <p>${destinataire.adresse}</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>TRANSPORTEUR</h3>
+                        <p><strong>${livraison.transporteur}</strong></p>
+                        <p>Chauffeur: ${livraison.chauffeur || 'Non assigné'}</p>
+                        <p>Véhicule: ${livraison.vehicule || 'Non assigné'}</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>DÉTAILS DE LA MARCHANDISE</h3>
+                        <table>
+                            <tr>
+                                <th>Nature des marchandises</th>
+                                <th>Nombre de palettes</th>
+                                <th>Poids brut (kg)</th>
+                                <th>Volume</th>
+                            </tr>
+                            <tr>
+                                <td>${livraison.natureProduits}</td>
+                                <td>${livraison.nbPalettes}</td>
+                                <td>${livraison.poids}</td>
+                                <td>${livraison.nbPalettes} palettes</td>
+                            </tr>
+                        </table>
+                        <p><strong>Instructions spéciales:</strong> ${livraison.consignes}</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>INFORMATIONS DE TRANSPORT</h3>
+                        <p><strong>Tarif convenu:</strong> ${livraison.tarif} €</p>
+                        <p><strong>Date de prise en charge:</strong> ${new Date().toLocaleDateString('fr-FR')}</p>
+                    </div>
+
+                    ${
+                        livraison.reservesChargement && livraison.reservesChargement !== 'Aucune réserve'
+                        ? `
+                        <div class="section" style="background: #fff3cd; border: 1px solid #ffeaa7;">
+                            <h3>⚠️ RÉSERVES DU CHAUFFEUR</h3>
+                            <p><strong>${livraison.reservesChargement}</strong></p>
+                            <p><em>Enregistré le ${livraison.dateChargement}</em></p>
+                        </div>
+                        `
+                        : ''
+                    }
+
+                    <div class="grid-2">
+                        <div>
+                            <h3>SIGNATURE EXPÉDITEUR</h3>
+                            <div class="signature"></div>
+                            <p>Nom: _________________________</p>
+                            <p>Date: _________________________</p>
+                            <p>Cachet entreprise:</p>
+                        </div>
+                        
+                        <div>
+                            <h3>SIGNATURE CHAUFFEUR</h3>
+                            <div class="signature"></div>
+                            <p>Nom: _________________________</p>
+                            <p>Date: _________________________</p>
+                            <p>Heure: _________________________</p>
+                        </div>
+                    </div>
+                </body>
+            </html>
+        `;
+
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(bordereauContent);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        
+        alert('📄 Bordereau de chargement généré et envoyé à l\'impression !');
+
+    }
+}
+function imprimerBordereauChargement(livraisonId) {
+    genererBordereauChargement(livraisonId);
+}
+
+function genererLettreVoiture(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        if (!livraison.confirmationChargement) {
+            alert('⚠️ La lettre de voiture ne peut être générée qu\'après validation du chargement par le chauffeur');
+            return;
+        }
+        
+        const expediteur = donnees.acteurs.find(a => a.id === livraison.expediteurId);
+        const transporteur = donnees.acteurs.find(a => a.id === livraison.transporteurId);
+        const destinataire = donnees.acteurs.find(a => a.id === livraison.destinataireId);
+        
+        // Déterminer si c'est national ou international
+        const isInternational = false; // Pour l'instant, on considère tout comme national
+        const typeLettre = isInternational ? 'INTERNATIONALE CMR' : 'NATIONALE';
+        
+        const lettreContent = `
+            <html>
+                <head>
+                    <title>Lettre de Voiture ${typeLettre} - ${livraison.reference}</title>
+                    <style>
+                        body { font-family: Arial, sans-serif; padding: 20px; }
+                        h1, h2 { color: #1e40af; text-align: center; }
+                        .section { margin: 15px 0; padding: 10px; border: 1px solid #ddd; }
+                        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+                        table { width: 100%; border-collapse: collapse; margin: 10px 0; }
+                        th, td { padding: 8px; text-align: left; border-bottom: 1px solid #ddd; }
+                        .signature { height: 60px; border-bottom: 1px solid #000; margin-top: 40px; }
+                        .header { border-bottom: 2px solid #1e40af; padding-bottom: 10px; margin-bottom: 20px; }
+                        .legal { font-size: 10px; color: #666; margin-top: 30px; }
+                    </style>
+                </head>
+                <body>
+                    <div class="header">
+                        <h1>LETTRE DE VOITURE ${typeLettre}</h1>
+                        <h2>${isInternational ? 'Convention CMR - Transport International' : 'Transport National Routier'}</h2>
+                        <p><strong>Référence:</strong> ${livraison.reference} | <strong>Date d'émission:</strong> ${new Date().toLocaleDateString('fr-FR')}</p>
+                    </div>
+                    
+                    <div class="grid-2">
+                        <div class="section">
+                            <h3>1. EXPÉDITEUR</h3>
+                            <p><strong>${expediteur.raisonSociale}</strong></p>
+                            <p>${expediteur.adresse}</p>
+                            <p>SIRET: ${expediteur.siret}</p>
+                            <p>Tél: ${expediteur.telephone}</p>
+                        </div>
+
+                        <div class="section">
+                            <h3>2. DESTINATAIRE</h3>
+                            <p><strong>${destinataire.raisonSociale}</strong></p>
+                            <p>${destinataire.adresse}</p>
+                            <p>Tél: ${destinataire.telephone}</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div class="section">
+                            <h3>3. LIEU DE CHARGEMENT</h3>
+                            <p><strong>${expediteur.raisonSociale}</strong></p>
+                            <p>${expediteur.adresse}</p>
+                            <p><strong>Quai:</strong> ${livraison.numeroQuai}</p>
+                            <p><strong>Date:</strong> ${livraison.dateChargement}</p>
+                        </div>
+
+                        <div class="section">
+                            <h3>4. LIEU DE LIVRAISON</h3>
+                            <p><strong>${destinataire.raisonSociale}</strong></p>
+                            <p>${destinataire.adresse}</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>5. TRANSPORTEUR</h3>
+                        <p><strong>${transporteur.raisonSociale}</strong></p>
+                        <p>${transporteur.adresse}</p>
+                        <p>SIRET: ${transporteur.siret}</p>
+                        <p>Tél: ${transporteur.telephone}</p>
+                        <p><strong>Chauffeur:</strong> ${livraison.chauffeur}</p>
+                        <p><strong>Véhicule:</strong> ${livraison.vehicule}</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>6. MARCHANDISES</h3>
+                        <table>
+                            <tr>
+                                <th>Nature et désignation</th>
+                                <th>Poids brut (kg)</th>
+                                <th>Volume/Colis</th>
+                                <th>Nombre</th>
+                            </tr>
+                            <tr>
+                                <td>${livraison.natureProduits}</td>
+                                <td>${livraison.poids}</td>
+                                <td>Palettes</td>
+                                <td>${livraison.nbPalettes}</td>
+                            </tr>
+                        </table>
+                        <p><strong>Instructions particulières:</strong> ${livraison.consignes}</p>
+                    </div>
+
+                    <div class="section">
+                        <h3>7. FRAIS DE TRANSPORT</h3>
+                        <p><strong>Montant convenu:</strong> ${livraison.tarif} € TTC</p>
+                        <p><strong>Mode de paiement:</strong> Comptant à la livraison</p>
+                        ${isInternational ? '<p><strong>Devise:</strong> EUR</p>' : ''}
+                    </div>
+
+                    <div class="section">
+                        <h3>8. INSTRUCTIONS PARTICULIÈRES</h3>
+                        <p>${livraison.consignes}</p>
+                        <p>Température: ${livraison.consignes.includes('Température') ? 'Contrôlée' : 'Ambiance'}</p>
+                    </div>
+
+                    ${isInternational ? `
+                    <div class="section">
+                        <h3>9. DOUANE ET FORMALITÉS</h3>
+                        <p>Document conforme à la Convention CMR pour le transport international de marchandises par route</p>
+                    </div>
+                    ` : ''}
+
+                    <div class="grid-2">
+                        <div>
+                            <h3>SIGNATURE EXPÉDITEUR</h3>
+                            <p>Je certifie exactes les indications ci-dessus</p>
+                            <div class="signature"></div>
+                            <p>Nom: _________________________</p>
+                            <p>Date: _________________________</p>
+                            <p>Cachet entreprise:</p>
+                        </div>
+
+                        <div>
+                            <h3>SIGNATURE TRANSPORTEUR</h3>
+                            <p>Accepté le ${new Date().toLocaleDateString('fr-FR')}</p>
+                            <div class="signature"></div>
+                            <p>Nom: _________________________</p>
+                            <p>Date: _________________________</p>
+                            <p>Cachet transporteur:</p>
+                        </div>
+                    </div>
+
+                    <div class="section">
+                        <h3>BON DE LIVRAISON (à remplir par le destinataire)</h3>
+                        <p>Je soussigné, ______________________________________</p>
+                        <p>Déclare avoir reçu la marchandise conformément aux indications ci-dessus</p>
+                        <div class="signature"></div>
+                        <p>Nom: _________________________ Date: _________________________</p>
+                        <p>Cachet destinataire:</p>
+                        <p>Observations: ______________________________________</p>
+                    </div>
+
+                    <div class="legal">
+                        <p><strong>MENTIONS LÉGALES OBLIGATOIRES:</strong></p>
+                        <p>• Document contractuel de transport routier de marchandises</p>
+                        <p>• Preuve du contrat de transport et des conditions convenues</p>
+                        <p>• À conserver 2 ans par l'entreprise de transport (Article R. 3211-1 du code des transports)</p>
+                        <p>• Présence obligatoire à bord du véhicule pendant le transport</p>
+                        ${isInternational ? 
+                            '<p>• Conforme à la Convention CMR du 19/05/1956 relative au contrat de transport international de marchandises par route</p>' : 
+                            '<p>• Conforme aux dispositions du code des transports français pour le transport national</p>'
+                        }
+                    </div>
+                </body>
+            </html>
+        `;
+        
+        const printWindow = window.open('', '_blank');
+        printWindow.document.write(lettreContent);
+        printWindow.document.close();
+        printWindow.focus();
+        printWindow.print();
+        
+        alert(`📄 Lettre de voiture ${typeLettre.toLowerCase()} générée et envoyée à l'impression !`);
+    }
+}
+function imprimerLettreVoiture(livraisonId) {
+    genererLettreVoiture(livraisonId);
+}
+        function imprimerLettreVoiture(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            if (livraison) {
+                alert(`🖨️ Impression de la lettre de voiture pour ${livraison.reference}`);
+            }
+        }
+
+        function genererFactureDocument(livraisonId) {
+            const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+            const facture = donnees.factures.find(f => f.livraisonId === livraisonId);
+            if (livraison && facture) {
+                alert(`📄 Facture ${facture.reference} générée pour ${livraison.reference}\nMontant: ${facture.montant}€`);
+            }
+        }
+
+        function imprimerFacture(livraisonId) {
+            const facture = donnees.factures.find(f => f.livraisonId === livraisonId);
+            if (facture) {
+                alert(`🖨️ Impression de la facture ${facture.reference}`);
+            }
+        }
+
+        // FONCTIONS POUR LA GESTION DE PARC (existantes)
+        let vehiculeSelectionne = null;
+
+        function montrerModalVehicule() {
+            montrerModal('modal-vehicule');
+        }
+
+        function ajouterEntretien(vehiculeId) {
+            vehiculeSelectionne = vehiculeId;
+            document.getElementById('vehicule-id-entretien').value = vehiculeId;
+            document.getElementById('date-entretien').value = new Date().toISOString().split('T')[0];
+            montrerModal('modal-entretien');
+        }
+
+        function ajouterControle(vehiculeId) {
+            vehiculeSelectionne = vehiculeId;
+            document.getElementById('vehicule-id-controle').value = vehiculeId;
+            document.getElementById('date-controle').value = new Date().toISOString().split('T')[0];
+            
+            const dateProchaine = new Date();
+            const typeControle = document.getElementById('type-controle').value;
+            if (typeControle === 'Contrôle technique' || typeControle === 'Tachygraphe') {
+                dateProchaine.setFullYear(dateProchaine.getFullYear() + 1);
+            } else if (typeControle === 'Hayon') {
+                dateProchaine.setMonth(dateProchaine.getMonth() + 6);
+            }
+            document.getElementById('date-prochaine-controle').value = dateProchaine.toISOString().split('T')[0];
+            
+            montrerModal('modal-controle');
+        }
+
+        function scannerDocument(vehiculeId, typeDoc) {
+            vehiculeSelectionne = vehiculeId;
+            document.getElementById('vehicule-id-document').value = vehiculeId;
+            document.getElementById('type-document').value = typeDoc;
+            document.getElementById('label-type-document').textContent = typeDoc;
+            document.getElementById('date-scan').value = new Date().toISOString().split('T')[0];
+            montrerModal('modal-document');
+        }
+
+        function creerVehicule() {
+            const nouveauVehicule = {
+                id: donnees.vehicules.length + 1,
+                immatriculation: document.getElementById('immatriculation-vehicule').value,
+                transporteurId: 2,
+                transporteur: 'Transports Dupont',
+                marque: document.getElementById('marque-vehicule').value,
+                modele: document.getElementById('modele-vehicule').value,
+                numeroChassis: document.getElementById('chassis-vehicule').value,
+                type: document.getElementById('type-vehicule').value,
+                capacite: document.getElementById('capacite-vehicule').value,
+                statut: 'Disponible',
+                dateMiseEnService: document.getElementById('date-vehicule').value || new Date().toISOString().split('T')[0],
+                entretiens: [],
+                controles: [
+                    {
+                        id: 1,
+                        type: 'Contrôle technique',
+                        date: '',
+                        dateProchaine: '',
+                        statut: 'À programmer'
+                    },
+                    {
+                        id: 2,
+                        type: 'Tachygraphe',
+                        date: '',
+                        dateProchaine: '',
+                        statut: 'À programmer'
+                    },
+                    {
+                        id: 3,
+                        type: 'Hayon',
+                        date: '',
+                        dateProchaine: '',
+                        statut: 'À programmer'
+                    }
+                ],
+                documents: [
+                    {
+                        id: 1,
+                        type: 'Carte grise',
+                        dateScan: '',
+                        statut: 'À scanner'
+                    }
+                ]
+            };
+
+            donnees.vehicules.push(nouveauVehicule);
+            cacherModal('modal-vehicule');
+            afficherPage('vehicules');
+            alert('✅ Véhicule créé avec succès !');
+        }
+
+        function creerEntretien() {
+            const vehicule = donnees.vehicules.find(v => v.id == vehiculeSelectionne);
+            if (vehicule) {
+                const nouvelEntretien = {
+                    id: vehicule.entretiens.length + 1,
+                    type: document.getElementById('type-entretien').value,
+                    date: document.getElementById('date-entretien').value,
+                    kilometrage: document.getElementById('km-entretien').value,
+                    cout: document.getElementById('cout-entretien').value,
+                    prestataire: document.getElementById('prestataire-entretien').value,
+                    notes: document.getElementById('notes-entretien').value
+                };
+                vehicule.entretiens.push(nouvelEntretien);
+                cacherModal('modal-entretien');
+                afficherPage('vehicules');
+                alert('✅ Entretien enregistré !');
+            }
+        }
+
+        function creerControle() {
+            const vehicule = donnees.vehicules.find(v => v.id == vehiculeSelectionne);
+            if (vehicule) {
+                const typeControle = document.getElementById('type-controle').value;
+                const controleExist = vehicule.controles.find(c => c.type === typeControle);
+                
+                if (controleExist) {
+                    controleExist.date = document.getElementById('date-controle').value;
+                    controleExist.dateProchaine = document.getElementById('date-prochaine-controle').value;
+                    controleExist.statut = document.getElementById('statut-controle').value;
+                } else {
+                    const nouveauControle = {
+                        id: vehicule.controles.length + 1,
+                        type: typeControle,
+                        date: document.getElementById('date-controle').value,
+                        dateProchaine: document.getElementById('date-prochaine-controle').value,
+                        statut: document.getElementById('statut-controle').value
+                    };
+                    vehicule.controles.push(nouveauControle);
+                }
+                cacherModal('modal-controle');
+                afficherPage('vehicules');
+                alert('✅ Contrôle enregistré !');
+            }
+        }
+
+        function enregistrerScan() {
+            const vehicule = donnees.vehicules.find(v => v.id == vehiculeSelectionne);
+            if (vehicule) {
+                const typeDoc = document.getElementById('type-document').value;
+                const docExist = vehicule.documents.find(d => d.type === typeDoc);
+                
+                if (docExist) {
+                    docExist.dateScan = document.getElementById('date-scan').value;
+                    docExist.statut = 'Scanné';
+                } else {
+                    const nouveauDoc = {
+                        id: vehicule.documents.length + 1,
+                        type: typeDoc,
+                        dateScan: document.getElementById('date-scan').value,
+                        statut: 'Scanné'
+                    };
+                    vehicule.documents.push(nouveauDoc);
+                }
+                cacherModal('modal-document');
+                afficherPage('vehicules');
+                alert('✅ Document scanné avec succès !');
+            }
+        }
+function montrerEntretiens(vehiculeId) {
+    const card = document.querySelector(`.card[data-id='${vehiculeId}']`);
+    if(card) {
+        const section = card.querySelector('.section-entretien');
+        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
+function montrerControles(vehiculeId) {
+    const card = document.querySelector(`.card[data-id='${vehiculeId}']`);
+    if(card) {
+        const section = card.querySelector('.section-controle');
+        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+}
+
+function montrerDocuments(vehiculeId) {
+    const card = document.querySelector(`.card[data-id='${vehiculeId}']`);
+    if(card) {
+        const section = card.querySelector('.section-documents');
+        section.style.display = section.style.display === 'none' ? 'block' : 'none';
+    }
+}
+function creerChauffeur() {
+    const nom = document.getElementById('nom-chauffeur').value;
+    const prenom = document.getElementById('prenom-chauffeur').value;
+    const permis = document.getElementById('permis-chauffeur').value;
+    const transporteurId = parseInt(document.getElementById('transporteur-chauffeur').value);
+
+    if (!nom || !prenom) {
+        alert('⚠️ Veuillez saisir le nom et prénom du chauffeur');
+        return;
+    }
+
+    const transporteur = donnees.acteurs.find(a => a.id === transporteurId);
+
+    const nouveauChauffeur = {
+        id: donnees.chauffeurs.length + 1,
+        nom: nom,
+        prenom: prenom,
+        transporteurId: transporteurId,
+        transporteur: transporteur.raisonSociale,
+        permis: permis,
+        statut: 'Disponible',
+        absences: [],
+        demandesEnCours: []
+    };
+
+    donnees.chauffeurs.push(nouveauChauffeur);
+    cacherModal('modal-chauffeur');
+    afficherPage('chauffeurs');
+    alert('✅ Chauffeur créé avec succès !');
+}
+function verifierAbsencesProchaines() {
+    const dansUneSemaine = new Date();
+    dansUneSemaine.setDate(dansUneSemaine.getDate() + 7);
+    const dateDansUneSemaine = dansUneSemaine.toISOString().split('T')[0];
+    
+    const aujourdhui = new Date().toISOString().split('T')[0];
+    
+    const absencesProchaines = [];
+    
+    donnees.chauffeurs.forEach(chauffeur => {
+        if (chauffeur.absences) {
+            chauffeur.absences.forEach(absence => {
+                if (absence.statut === 'Validé' && 
+                    absence.dateDebut <= dateDansUneSemaine && 
+                    absence.dateDebut >= aujourdhui) {
+                    
+                    absencesProchaines.push({
+                        chauffeur: `${chauffeur.prenom} ${chauffeur.nom}`,
+                        type: absence.type,
+                        dateDebut: absence.dateDebut,
+                        dateFin: absence.dateFin,
+                        motif: absence.motif
+                    });
+                }
+            });
+        }
+    });
+    
+    return absencesProchaines;
+}
+
+// FONCTION POUR AFFICHER LES ALERTES
+function afficherAlertesAbsences() {
+    const absencesProchaines = verifierAbsencesProchaines();
+    
+    if (absencesProchaines.length > 0) {
+        let messageAlert = '📅 **ABSENCES PROCHAINES (dans moins d\'une semaine) :**\n\n';
+        
+        absencesProchaines.forEach(absence => {
+            const joursRestants = Math.floor((new Date(absence.dateDebut) - new Date()) / (1000 * 60 * 60 * 24));
+            messageAlert += `👤 **${absence.chauffeur}**\n`;
+            messageAlert += `📋 ${absence.type} - Du ${absence.dateDebut} au ${absence.dateFin}\n`;
+            messageAlert += `📝 Motif: ${absence.motif}\n`;
+            messageAlert += `⏳ Départ dans ${joursRestants} jour(s)\n\n`;
+        });
+        
+        // Afficher l'alerte au chargement de la page
+        setTimeout(() => {
+            if (confirm(messageAlert + '\nCliquez sur OK pour continuer.')) {
+                // L'utilisateur a vu l'alerte
+            }
+        }, 1000);
+    }
+}
+
+function mettreAJourStatutsChauffeurs() {
+    const aujourdhui = new Date().toISOString().split('T')[0];
+    
+    donnees.chauffeurs.forEach(chauffeur => {
+        if (chauffeur.absences) {
+            const estAbsent = chauffeur.absences.some(absence => 
+                absence.statut === 'Validé' && 
+                absence.dateDebut <= aujourdhui && 
+                absence.dateFin >= aujourdhui
+            );
+            
+            chauffeur.statut = estAbsent ? 'Absent' : 'Disponible';
+        }
+    });
+}
+
+        // NOUVELLES FONCTIONS POUR LA GESTION DES TOURNÉES
+        function genererPageActeurs() {
+            const user = donnees.utilisateurActuel;
+            
+            if (user !== 'admin') {
+                return '<h2>⛔ Accès Refusé</h2><p>Seul l\'administrateur peut gérer les comptes clients.</p>';
+            }
+
+            return `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>🔧 Gestion des Comptes Clients</h2>
+                    <button class="platform-btn btn-success">➕ Créer un Compte</button>
+                </div>
+
+                <div class="grid-3">
+                    <div class="card">
+                        <h3>Expéditeurs</h3>
+                        <div style="font-size: 2em; color: #1e40af;">${donnees.acteurs.filter(a => a.type === 'expediteur').length}</div>
+                    </div>
+                    <div class="card">
+                        <h3>Transporteurs</h3>
+                        <div style="font-size: 2em; color: #059669;">${donnees.acteurs.filter(a => a.type === 'transporteur').length}</div>
+                    </div>
+                    <div class="card">
+                        <h3>Destinataires</h3>
+                        <div style="font-size: 2em; color: #d97706;">${donnees.acteurs.filter(a => a.type === 'destinataire').length}</div>
+                    </div>
+                </div>
+
+                <h3>Liste des comptes clients</h3>
+                ${donnees.acteurs.map(acteur => `
+                    <div class="card">
+                        <div style="display: flex; justify-content: space-between; align-items: start;">
+                            <div style="flex: 1;">
+                                <h4>${acteur.raisonSociale}</h4>
+                                <p><strong>SIRET:</strong> ${acteur.siret}</p>
+                                <p><strong>Adresse:</strong> ${acteur.adresse}</p>
+                                <p><strong>Contact:</strong> ${acteur.telephone} | ${acteur.email}</p>
+                            </div>
+                            <div style="color: #6b7280; font-size: 12px;">
+                                Créé le ${acteur.dateCreation}
+                            </div>
+                        </div>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+        function genererPageLivraisons() {
+            const user = donnees.utilisateurActuel;
+            let boutonAjout = '';
+            
+            if (user === 'expediteur' || user === 'transporteur' || user === 'destinataire' || user === 'admin') {
+                boutonAjout = '<button class="platform-btn btn-success" onclick="montrerModal(\'modal-livraison\')">➕ Créer une Livraison</button>';
+            }
+
+            let livraisonsFiltrees = donnees.livraisons;
+            if (user === 'expediteur') {
+                livraisonsFiltrees = donnees.livraisons.filter(l => l.expediteurId === 1);
+            } else if (user === 'transporteur') {
+                livraisonsFiltrees = donnees.livraisons.filter(l => l.transporteurId === 2);
+            } else if (user === 'destinataire') {
+                livraisonsFiltrees = donnees.livraisons.filter(l => l.destinataireId === 3);
+            } else if (user === 'chauffeur') {
+                livraisonsFiltrees = donnees.livraisons.filter(l => l.chauffeurId === 1 || (l.statut === 'Confirmée' && !l.chauffeurId));
+            }
+
+            return `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>🚚 Livraisons</h2>
+                    <div>${boutonAjout}</div>
+                </div>
+
+                <p>${livraisonsFiltrees.length} livraison(s) trouvée(s)</p>
+                ${livraisonsFiltrees.map(livraison => `
+                    <div class="card" onclick="voirDetailsLivraison(${livraison.id})" style="cursor: pointer;">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <h3>${livraison.reference}</h3>
+                            <span class="statut-badge statut-${livraison.statut.toLowerCase().replace(' ', '-')}">${livraison.statut}</span>
+                        </div>
+                        <p><strong>De:</strong> ${livraison.expediteur} → <strong>À:</strong> ${livraison.destinataire}</p>
+                        <p><strong>Transporteur:</strong> ${livraison.transporteur}</p>
+                        ${livraison.chauffeur ? `<p><strong>Chauffeur:</strong> ${livraison.chauffeur}</p>` : ''}
+                        ${livraison.vehicule ? `<p><strong>Véhicule:</strong> ${livraison.vehicule}</p>` : ''}
+                        <p><strong>Palettes:</strong> ${livraison.nbPalettes} | <strong>Poids:</strong> ${livraison.poids}kg ${user !== 'chauffeur' ? `| <strong>Tarif:</strong> ${livraison.tarif}€` : ''}</p>
+                        <p><strong>Produits:</strong> ${livraison.natureProduits}</p>
+                    </div>
+                `).join('')}
+            `;
+        }
+
+function chargerTournees() {
+            const tourneesSauvegardees = localStorage.getItem('tournees');
+            if (tourneesSauvegardees) {
+                donnees.tournees = JSON.parse(tourneesSauvegardees);
+            }
+        }
+
+        function sauvegarderTournees() {
+            localStorage.setItem('tournees', JSON.stringify(donnees.tournees));
+        }
+        
+function genererPageTournees() {
+            const user = donnees.utilisateurActuel;
+            let boutonAjout = '';
+
+            if (user === 'admin' || user === 'transporteur') {
+                boutonAjout = '<button class="platform-btn btn-success" onclick="montrerModal(\'modal-tournee\')">➕ Nouvelle Tournée</button>';
+            }
+
+            return `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <h2>🚛 Gestion des Tournées</h2>
+                    <div>${boutonAjout}</div>
+                </div>
+
+                <div class="filtres-tournees">
+                    <div class="form-group-platform">
+                        <label for="recherche-client-tournee">🔍 Recherche Client</label>
+                        <input type="text" id="recherche-client-tournee" placeholder="Nom du client..." onkeyup="filtrerTournees()">
+                    </div>
+                    
+                    <div class="form-group-platform">
+                        <label for="filtre-plaque-tournee">🚚 Plaque Véhicule</label>
+                        <input type="text" id="filtre-plaque-tournee" placeholder="Plaque d'immatriculation..." onkeyup="filtrerTournees()">
+                    </div>
+                    
+                    <div class="form-group-platform">
+                        <label for="filtre-chauffeur-tournee">👤 Chauffeur</label>
+                        <input type="text" id="filtre-chauffeur-tournee" placeholder="Nom du chauffeur..." onkeyup="filtrerTournees()">
+                    </div>
+                </div>
+
+                <div id="grille-tournees" class="grille-tournees">
+                    ${donnees.tournees.length === 0 ? `
+                        <div style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #6b7280;">
+<h3>Aucune tournée planifiée</h3>
+                            <p>Cliquez sur "Nouvelle Tournée" pour commencer</p>
+                        </div>
+                    ` : donnees.tournees.map(tournee => `
+                        <div class="carte-tournee">
+                            <div class="carte-header">
+                                <div class="plaque-vehicule">${tournee.plaque}</div>
+                                <div class="voyage">${tournee.voyage}</div>
+                            </div>
+                            
+                            <div class="info-chauffeur">
+                                <strong>${tournee.chauffeur}</strong> - ${tournee.type}
+                            </div>
+                            
+                            <div style="font-weight: bold; margin: 10px 0; color: #1e40af;">
+                                🏢 ${tournee.nomClient}
+                            </div>
+                            
+                            <div class="details-service">
+                                <div class="heure-service">
+                                    <span>⏰ Heure de service:</span>
+                                    <span><strong>${tournee.heurePrise}</strong></span>
+                                </div>
+                            </div>
+                            
+                            <div class="actions-carte">
+                                <button class="btn btn-icone btn-secondaire" onclick="modifierTournee(${tournee.id})">
+                                    ✏️ Modifier
+                                </button>
+                                <button class="btn btn-icone btn-danger" onclick="supprimerTournee(${tournee.id})">
+                                    🗑️ Supprimer
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function creerTournee() {
+            const nomClient = document.getElementById('nom-client-tournee').value;
+            const plaque = document.getElementById('plaque-vehicule-tournee').value;
+            const chauffeur = document.getElementById('nom-chauffeur-tournee').value;
+            const type = document.getElementById('type-vehicule-tournee').value;
+            const voyage = document.getElementById('numero-voyage-tournee').value;
+            const heurePrise = document.getElementById('heure-prise-tournee').value;
+
+            if (!nomClient || !plaque || !chauffeur || !voyage || !heurePrise) {
+                alert('Veuillez remplir tous les champs obligatoires');
+                return;
+            }
+
+            const nouvelleTournee = {
+                id: Date.now(),
+                nomClient,
+                plaque,
+                chauffeur,
+                type,
+                voyage,
+                heurePrise,
+                dateCreation: new Date().toLocaleDateString('fr-FR')
+            };
+
+            donnees.tournees.push(nouvelleTournee);
+            sauvegarderTournees();
+            cacherModal('modal-tournee');
+            afficherPage('tournees');
+            alert('✅ Tournée créée avec succès !');
+        }
+
+        function modifierTournee(id) {
+            const tournee = donnees.tournees.find(t => t.id === id);
+            if (tournee) {
+                document.getElementById('nom-client-tournee').value = tournee.nomClient;
+                document.getElementById('plaque-vehicule-tournee').value = tournee.plaque;
+                document.getElementById('nom-chauffeur-tournee').value = tournee.chauffeur;
+                document.getElementById('type-vehicule-tournee').value = tournee.type;
+                document.getElementById('numero-voyage-tournee').value = tournee.voyage;
+                document.getElementById('heure-prise-tournee').value = tournee.heurePrise;
+                
+                // Stocker l'ID de la tournée à modifier
+                document.getElementById('modal-tournee').setAttribute('data-edit-id', id);
+                montrerModal('modal-tournee');
+            }
+        }
+
+        function sauvegarderModificationTournee() {
+            const id = parseInt(document.getElementById('modal-tournee').getAttribute('data-edit-id'));
+            const tournee = donnees.tournees.find(t => t.id === id);
+            
+            if (tournee) {
+                tournee.nomClient = document.getElementById('nom-client-tournee').value;
+                tournee.plaque = document.getElementById('plaque-vehicule-tournee').value;
+                tournee.chauffeur = document.getElementById('nom-chauffeur-tournee').value;
+                tournee.type = document.getElementById('type-vehicule-tournee').value;
+                tournee.voyage = document.getElementById('numero-voyage-tournee').value;
+                tournee.heurePrise = document.getElementById('heure-prise-tournee').value;
+                
+                sauvegarderTournees();
+                cacherModal('modal-tournee');
+                afficherPage('tournees');
+                alert('✅ Tournée modifiée avec succès !');
+            }
+        }
+
+        function supprimerTournee(id) {
+            if (confirm('Êtes-vous sûr de vouloir supprimer cette tournée ?')) {
+                donnees.tournees = donnees.tournees.filter(t => t.id !== id);
+                sauvegarderTournees();
+                afficherPage('tournees');
+                alert('✅ Tournée supprimée !');
+            }
+        }
+
+        function filtrerTournees() {
+            const rechercheClient = document.getElementById('recherche-client-tournee').value.toLowerCase();
+            const filtrePlaque = document.getElementById('filtre-plaque-tournee').value.toLowerCase();
+            const filtreChauffeur = document.getElementById('filtre-chauffeur-tournee').value.toLowerCase();
+
+            const tourneesFiltrees = donnees.tournees.filter(tournee => {
+                return (!rechercheClient || tournee.nomClient.toLowerCase().includes(rechercheClient)) &&
+                       (!filtrePlaque || tournee.plaque.toLowerCase().includes(filtrePlaque)) &&
+                       (!filtreChauffeur || tournee.chauffeur.toLowerCase().includes(filtreChauffeur));
+            });
+
+            const grille = document.getElementById('grille-tournees');
+            grille.innerHTML = tourneesFiltrees.map(tournee => `
+                <div class="carte-tournee">
+                    <div class="carte-header">
+                        <div class="plaque-vehicule">${tournee.plaque}</div>
+                        <div class="voyage">${tournee.voyage}</div>
+                    </div>
+                    
+                    <div class="info-chauffeur">
+                        <strong>${tournee.chauffeur}</strong> - ${tournee.type}
+                    </div>
+                    
+                    <div style="font-weight: bold; margin: 10px 0; color: #1e40af;">
+                        🏢 ${tournee.nomClient}
+                    </div>
+                    
+                    <div class="details-service">
+                        <div class="heure-service">
+                            <span>⏰ Heure de service:</span>
+                            <span><strong>${tournee.heurePrise}</strong></span>
+                        </div>
+                    </div>
+                    
+                    <div class="actions-carte">
+                        <button class="btn btn-icone btn-secondaire" onclick="modifierTournee(${tournee.id})">
+                            ✏️ Modifier
+                        </button>
+                        <button class="btn btn-icone btn-danger" onclick="supprimerTournee(${tournee.id})">
+                            🗑️ Supprimer
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+// FONCTIONS POUR LE PLANNING A4
+const donneesPlanning = {
+    date: new Date()
+};
+
+function genererPagePlanning() {
+    return `
+        <div class="contenu-onglet">
+            <div class="boutons-container">
+                <button onclick="window.print()">🖨️ Imprimer Format A4</button>
+                <button onclick="changerDatePlanning(-1)">⬅️ Jour précédent</button>
+                <button onclick="changerDatePlanning(1)">Jour suivant ➡️</button>
+                <button onclick="genererPlanning()">🔄 Générer Planning</button>
+            </div>
+            
+                <div class="page-a4-paysage planning-printable">
+                <div class="entete-planning">
+                    <div class="titre-planning">PLANNING JOURNALIER DES TOURNÉES</div>
+                    <div class="date-planning" id="date-affichage"></div>
+                </div>
+                
+                <div class="clients-grid" id="grid-clients">
+                    <!-- Contenu généré dynamiquement -->
+                </div>
+                
+                <div class="recap-journalier">
+                    <strong>RÉCAPITULATIF JOURNALIER</strong>
+                    <div class="stats-recap" id="stats-recap">
+                        <!-- Stats générées dynamiquement -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function genererPlanning() {
+    const grid = document.getElementById('grid-clients');
+    const dateAffichage = document.getElementById('date-affichage');
+    const statsRecap = document.getElementById('stats-recap');
+    
+    if (!grid || !dateAffichage || !statsRecap) {
+        console.warn('Éléments du planning non trouvés dans le DOM');
+        return;
+    }
+
+    // Formater la date
+    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+    dateAffichage.textContent = donneesPlanning.date.toLocaleDateString('fr-FR', options);
+
+    // Organiser les tournées par client
+    const clientsMap = {};
+
+    donnees.tournees.forEach(tournee => {
+        const nomClient = tournee.nomClient || tournee.client || 'Client inconnu';
+        if (!clientsMap[nomClient]) {
+            clientsMap[nomClient] = {
+                porteurs: [],
+                semiRemorques: []
+            };
+        }
+
+        const typeVehicule = tournee.type && tournee.type.includes('Port') ? 'porteurs' : 'semiRemorques';
+        clientsMap[nomClient][typeVehicule].push({
+            plaque: tournee.plaque || tournee.vehicule || '',
+            chauffeur: tournee.chauffeur || '',
+            heurePrise: tournee.heurePrise || tournee.heurePriseService || '',
+            voyage: tournee.voyage || '',
+            type: tournee.type || ''
+        });
+    });
+
+    const clients = Object.keys(clientsMap).map((nom, index) => ({
+        id: index + 1,
+        nom: nom,
+        vehicules: clientsMap[nom]
+    }));
+
+    // Générer HTML des clients
+    grid.innerHTML = clients.map(client => `
+        <div class="client-card">
+            <div class="client-nom">${client.nom}</div>
+            
+            ${
+                client.vehicules.porteurs && client.vehicules.porteurs.length > 0
+                ? `
+                    <div class="section-vehicules">
+                        <div class="type-vehicule">🚚 PORTEURS</div>
+                        ${
+                            client.vehicules.porteurs.map(vehicule => `
+                                <div class="tournee-item">
+                                    <div class="vh-info">
+                                        <span class="vh-plaque">${vehicule.plaque}</span>
+                                        <span class="vh-voyage">${vehicule.voyage}</span>
+                                    </div>
+                                    <div class="chauffeur-info">
+                                        ${vehicule.chauffeur} - ${vehicule.type}
+                                    </div>
+                                    <div class="heure-service-planning">
+                                        <span>Service:</span>
+                                        <span><strong>${vehicule.heurePrise}</strong></span>
+                                    </div>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                `
+                : ''
+            }
+
+            ${
+                client.vehicules.semiRemorques && client.vehicules.semiRemorques.length > 0
+                ? `
+                    <div class="section-vehicules">
+                        <div class="type-vehicule">🚛 SEMI-REMORQUES</div>
+                        ${
+                            client.vehicules.semiRemorques.map(vehicule => `
+                                <div class="tournee-item">
+                                    <div class="vh-info">
+                                        <span class="vh-plaque">${vehicule.plaque}</span>
+                                        <span class="vh-voyage">${vehicule.voyage}</span>
+                                    </div>
+                                    <div class="chauffeur-info">
+                                        ${vehicule.chauffeur} - ${vehicule.type}
+                                    </div>
+                                    <div class="heure-service-planning">
+                                        <span>Service:</span>
+                                        <span><strong>${vehicule.heurePrise}</strong></span>
+                                    </div>
+                                </div>
+                            `).join('')
+                        }
+                    </div>
+                `
+                : ''
+            }
+        </div>
+    `).join('');
+
+    // Stats récap
+    const totalClients = clients.length;
+    const totalVehicules = donnees.tournees.length;
+    const totalChauffeurs = new Set(donnees.tournees.map(t => t.chauffeur)).size;
+
+    statsRecap.innerHTML = `
+        <div><strong>Clients:</strong> ${totalClients}</div>
+        <div><strong>Véhicules:</strong> ${totalVehicules}</div>
+        <div><strong>Chauffeurs:</strong> ${totalChauffeurs}</div>
+    `;
+}
+
+function changerDatePlanning(jours) {
+    donneesPlanning.date.setDate(donneesPlanning.date.getDate() + jours);
+    genererPlanning();
+}
+
+        // DÉMARRAGE
+        document.addEventListener('DOMContentLoaded', init);
+function assignerVehiculeChauffeur(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        // Filtrer les chauffeurs disponibles (non absents)
+        const chauffeursDisponibles = donnees.chauffeurs.filter(chauffeur => {
+            const aujourdhui = new Date().toISOString().split('T')[0];
+            const estAbsent = chauffeur.absences && chauffeur.absences.some(absence => 
+                absence.statut === 'Validé' && 
+                absence.dateDebut <= aujourdhui && 
+                absence.dateFin >= aujourdhui
+            );
+            return !estAbsent && chauffeur.statut === 'Disponible';
+        });
+
+        // Ouvrir une modal pour choisir véhicule et chauffeur
+        const modalContent = `
+            <h3>🚚 Assigner Véhicule et Chauffeur</h3>
+            <div class="form-group">
+                <label>Véhicule :</label>
+                <select id="select-vehicule">
+                    ${donnees.vehicules.map(v => 
+                        `<option value="${v.id}">${v.immatriculation} - ${v.marque} ${v.modele} (${v.capacite})</option>`
+                    ).join('')}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Chauffeur :</label>
+                <select id="select-chauffeur">
+                    ${chauffeursDisponibles.map(c => 
+                        `<option value="${c.id}">${c.prenom} ${c.nom} - Permis ${c.permis} ✅ Disponible</option>`
+                    ).join('')}
+                    ${chauffeursDisponibles.length === 0 ? '<option value="">Aucun chauffeur disponible</option>' : ''}
+                </select>
+            </div>
+            ${chauffeursDisponibles.length === 0 ? 
+                '<p style="color: #dc2626; font-weight: bold;">⚠️ Aucun chauffeur disponible actuellement</p>' : ''}
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" ${chauffeursDisponibles.length === 0 ? 'disabled' : ''} onclick="confirmerAssignation(${livraisonId})">
+                    ${chauffeursDisponibles.length === 0 ? '❌ Aucun chauffeur disponible' : '✅ Confirmer l\'assignation'}
+                </button>
+                <button class="btn" onclick="cacherModal(\'modal-assignation\')">❌ Annuler</button>
+            </div>
+        `;
+        
+        const modal = document.createElement('div');
+        modal.id = 'modal-assignation';
+        modal.className = 'modal';
+        modal.style.display = 'block';
+        modal.innerHTML = `
+            <div class="modal-content">
+                ${modalContent}
+            </div>
+        `;
+        document.body.appendChild(modal);
+    }
+}
+
+function confirmerAssignation(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    const vehiculeId = parseInt(document.getElementById('select-vehicule').value);
+    const chauffeurId = parseInt(document.getElementById('select-chauffeur').value);
+    
+    const vehicule = donnees.vehicules.find(v => v.id === vehiculeId);
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    
+    if (livraison && vehicule && chauffeur) {
+        livraison.vehiculeId = vehicule.id;
+        livraison.vehicule = `${vehicule.immatriculation} - ${vehicule.marque} ${vehicule.modele}`;
+        livraison.chauffeurId = chauffeur.id;
+        livraison.chauffeur = `${chauffeur.prenom} ${chauffeur.nom}`;
+livraison.statut = 'Confirmée'; // Reste en "Confirmée" jusqu'à confirmation du chauffeur        
+        // Notifier le chauffeur
+        donnees.notifications.push({
+            id: donnees.notifications.length + 1,
+            type: 'livraison',
+            message: `Nouvelle livraison ${livraison.reference} assignée - Véhicule: ${vehicule.immatriculation}`,
+            destinataire: 'chauffeur',
+            date: new Date().toLocaleString('fr-FR'),
+            lue: false
+        });
+        
+        cacherModal('modal-assignation');
+        cacherModal('modal-details-livraison');
+        afficherPage('livraisons');
+        alert('✅ Véhicule et chauffeur assignés avec succès !');
+    }
+}
+
+function confirmerAssignation(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    const vehiculeId = parseInt(document.getElementById('select-vehicule').value);
+    const chauffeurId = parseInt(document.getElementById('select-chauffeur').value);
+    
+    const vehicule = donnees.vehicules.find(v => v.id === vehiculeId);
+    const chauffeur = donnees.chauffeurs.find(c => c.id === chauffeurId);
+    
+    if (livraison && vehicule && chauffeur) {
+        livraison.vehiculeId = vehicule.id;
+        livraison.vehicule = `${vehicule.immatriculation} - ${vehicule.marque} ${vehicule.modele}`;
+        livraison.chauffeurId = chauffeur.id;
+        livraison.chauffeur = `${chauffeur.prenom} ${chauffeur.nom}`;
+livraison.statut = 'Confirmée'; // Reste en "Confirmée" jusqu'à confirmation du chauffeur        
+        cacherModal('modal-assignation');
+        cacherModal('modal-details-livraison');
+        afficherPage('livraisons');
+        alert('✅ Véhicule et chauffeur assignés avec succès !');
+    }
+}
+function prendreEnChargeTournee(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        livraison.chauffeurId = 1;
+        livraison.chauffeur = 'Jean Martin';
+        livraison.statut = 'En cours';
+        livraison.dateAssignation = new Date().toLocaleString('fr-FR');
+        cacherModal('modal-details-livraison');
+        afficherPage('livraisons');
+        alert('✅ Tournée prise en charge ! Le transporteur a été notifié.');
+    }
+}
+
+function assignerNumeroQuai(livraisonId) {
+    const livraison = donnees.livraisons.find(l => l.id === livraisonId);
+    if (livraison) {
+        const numeroQuai = prompt("Entrez le numéro de quai pour le chargement :");
+        if (numeroQuai) {
+            livraison.numeroQuai = numeroQuai;
+            cacherModal('modal-details-livraison');
+            setTimeout(function() {
+                voirDetailsLivraison(livraisonId);
+            }, 100);
+            alert('✅ Numéro de quai ' + numeroQuai + ' assigné !');
+        }
+    }
+}
+</script>
+
+    <!-- MODAL POUR LA CRÉATION/MODIFICATION DE TOURNÉES -->
+    <div id="modal-tournee" class="modal" data-edit-id="">
+        <div class="modal-content">
+            <h3 id="titre-modal-tournee">Nouvelle Tournée</h3>
+            
+            <div class="form-group">
+                <label for="nom-client-tournee">🏢 Nom du Client</label>
+                <input type="text" id="nom-client-tournee" placeholder="Ex: GROUPE DISTRI">
+            </div>
+            
+            <div class="form-group">
+                <label for="plaque-vehicule-tournee">🚚 Plaque Véhicule</label>
+                <input type="text" id="plaque-vehicule-tournee" placeholder="Ex: AB-123-CD">
+            </div>
+            
+            <div class="form-group">
+                <label for="nom-chauffeur-tournee">👤 Nom du Chauffeur</label>
+                <input type="text" id="nom-chauffeur-tournee" placeholder="Ex: J. Martin">
+            </div>
+            
+            <div class="form-group">
+                <label for="type-vehicule-tournee">📦 Type de Véhicule</label>
+                <select id="type-vehicule-tournee">
+                    <option value="Port 19T">Porteur 19T</option>
+                    <option value="Port 16T">Porteur 16T</option>
+                    <option value="Port 14T">Porteur 14T</option>
+                    <option value="Ens 38T">Ensemble 38T</option>
+                    <option value="Ens 40T">Ensemble 40T</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="numero-voyage-tournee">🎫 Numéro de Voyage</label>
+                <input type="text" id="numero-voyage-tournee" placeholder="Ex: VH-001">
+            </div>
+            
+            <div class="form-group">
+                <label for="heure-prise-tournee">⏰ Heure de Prise de Service</label>
+                <input type="time" id="heure-prise-tournee">
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="gererTournee()">💾 Sauvegarder</button>
+                <button class="btn" onclick="cacherModal('modal-tournee')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Gestionnaire pour créer ou modifier une tournée
+        function gererTournee() {
+            const editId = document.getElementById('modal-tournee').getAttribute('data-edit-id');
+            if (editId) {
+                sauvegarderModificationTournee();
+            } else {
+                creerTournee();
+            }
+        }
+
+        // Réinitialiser le modal quand il s'ouvre
+        document.getElementById('modal-tournee').addEventListener('click', function(e) {
+            if (e.target === this) {
+                this.removeAttribute('data-edit-id');
+                document.getElementById('titre-modal-tournee').textContent = 'Nouvelle Tournée';
+                document.getElementById('modal-tournee').querySelector('form').reset();
+            }
+        });
+    </script>
+<!-- MODAL CRÉATION LIVRAISON AVEC TOURNÉE -->
+    <div id="modal-livraison" class="modal">
+        <div class="modal-content">
+            <h3>🚚 Nouvelle Livraison / Tournée</h3>
+            
+            <div class="form-group">
+                <label>Expéditeur:</label>
+                <select id="expediteur-livraison">
+                    <option value="1">SARL France Export</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Destinataires (tournée multi-stops):</label>
+                <div style="border: 1px solid #ddd; padding: 15px; border-radius: 4px; max-height: 200px; overflow-y: auto;">
+                    <div>
+                        <input type="checkbox" id="dest1" value="3">
+                        <label for="dest1">SuperMarché Pro (Marseille)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dest2" value="4">
+                        <label for="dest2">Hyper U (Lyon)</label>
+                    </div>
+                    <div>
+                        <input type="checkbox" id="dest3" value="5"> 
+                        <label for="dest3">Carrefour Market (Paris)</label>
+                    </div>
+                    <!-- On peut ajouter d'autres destinataires plus tard -->
+                </div>
+                <small>Sélectionnez un ou plusieurs destinataires pour créer une tournée</small>
+            </div>
+
+            <div class="form-group">
+                <label>Transporteur:</label>
+                <select id="transporteur-livraison">
+                    <option value="2">Transports Dupont</option>
+                </select>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Nombre total de palettes:</label>
+                    <input type="number" id="palettes-livraison" placeholder="8">
+                </div>
+                <div class="form-group">
+                    <label>Poids total (kg):</label>
+                    <input type="number" id="poids-livraison" placeholder="1200">
+                </div>
+            </div>
+
+            <div class="grid-2">
+                <div class="form-group">
+                    <label>Tarif total (€):</label>
+                    <input type="number" id="tarif-livraison" placeholder="450">
+                </div>
+                <div class="form-group">
+                    <label>Nature des produits:</label>
+                    <input type="text" id="produits-livraison" placeholder="Produits alimentaires">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Consignes spéciales:</label>
+                <textarea id="consignes-livraison" rows="3" placeholder="Température contrôlée, fragile..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="creerLivraison()">✅ Créer la Livraison/Tournée</button>
+                <button class="btn" onclick="cacherModal('modal-livraison')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODALS EXISTANTS POUR LA GESTION DE PARC -->
+    <div id="modal-vehicule" class="modal">
+        <div class="modal-content">
+            <h3>🚛 Ajouter un Nouveau Véhicule</h3>
+            <div class="form-group">
+                <label>Immatriculation:</label>
+                <input type="text" id="immatriculation-vehicule" placeholder="AB-123-CD">
+            </div>
+            <div class="form-group">
+                <label>Marque:</label>
+                <input type="text" id="marque-vehicule" placeholder="Renault">
+            </div>
+            <div class="form-group">
+                <label>Modèle:</label>
+                <input type="text" id="modele-vehicule" placeholder="T Range T480">
+            </div>
+            <div class="form-group">
+                <label>Numéro de châssis:</label>
+                <input type="text" id="chassis-vehicule" placeholder="VF7XXXXXXXXXXXXXX">
+            </div>
+            <div class="form-group">
+                <label>Type:</label>
+                <select id="type-vehicule">
+                    <option value="Camion frigorifique">Camion frigorifique</option>
+                    <option value="Camion plateau">Camion plateau</option>
+                    <option value="Camion benne">Camion benne</option>
+                    <option value="Utilitaire">Utilitaire</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Capacité:</label>
+                <input type="text" id="capacite-vehicule" placeholder="33 palettes">
+            </div>
+            <div class="form-group">
+                <label>Date de mise en service:</label>
+                <input type="date" id="date-vehicule">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="creerVehicule()">✅ Créer le Véhicule</button>
+                <button class="btn" onclick="cacherModal('modal-vehicule')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-entretien" class="modal">
+        <div class="modal-content">
+            <h3>🔧 Nouvel Entretien</h3>
+            <input type="hidden" id="vehicule-id-entretien">
+            <div class="form-group">
+                <label>Type d'entretien:</label>
+                <select id="type-entretien">
+                    <option value="Vidange">Vidange</option>
+                    <option value="Changement pneus">Changement pneus</option>
+                    <option value="Révision">Révision</option>
+                    <option value="Freins">Freins</option>
+                    <option value="Autre">Autre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date:</label>
+                <input type="date" id="date-entretien">
+            </div>
+            <div class="form-group">
+                <label>Kilométrage:</label>
+                <input type="number" id="km-entretien" placeholder="85000">
+            </div>
+            <div class="form-group">
+                <label>Coût (€):</label>
+                <input type="number" id="cout-entretien" placeholder="450">
+            </div>
+            <div class="form-group">
+                <label>Prestataire:</label>
+                <input type="text" id="prestataire-entretien" placeholder="Garage Central">
+            </div>
+            <div class="form-group">
+                <label>Notes:</label>
+                <textarea id="notes-entretien" rows="3" placeholder="Détails de l'intervention..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="creerEntretien()">✅ Enregistrer l'Entretien</button>
+                <button class="btn" onclick="cacherModal('modal-entretien')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-controle" class="modal">
+        <div class="modal-content">
+            <h3>📋 Nouveau Contrôle</h3>
+            <input type="hidden" id="vehicule-id-controle">
+            <div class="form-group">
+                <label>Type de contrôle:</label>
+                <select id="type-controle">
+                    <option value="Contrôle technique">Contrôle technique</option>
+                    <option value="Tachygraphe">Tachygraphe</option>
+                    <option value="Hayon">Hayon</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Date du contrôle:</label>
+                <input type="date" id="date-controle">
+            </div>
+            <div class="form-group">
+                <label>Date du prochain contrôle:</label>
+                <input type="date" id="date-prochaine-controle">
+            </div>
+            <div class="form-group">
+                <label>Statut:</label>
+                <select id="statut-controle">
+                    <option value="Valide">Valide</option>
+                    <option value="En attente">En attente</option>
+                    <option value="Non conforme">Non conforme</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Organisme:</label>
+                <input type="text" id="organisme-controle" placeholder="Centre de contrôle agréé">
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="creerControle()">✅ Enregistrer le Contrôle</button>
+                <button class="btn" onclick="cacherModal('modal-controle')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modal-document" class="modal">
+        <div class="modal-content">
+            <h3>📸 Scanner Document</h3>
+            <input type="hidden" id="vehicule-id-document">
+            <input type="hidden" id="type-document">
+            <div class="form-group">
+                <label>Type de document:</label>
+                <strong id="label-type-document">Carte grise</strong>
+            </div>
+            <div class="form-group">
+                <label>Date du scan:</label>
+                <input type="date" id="date-scan">
+            </div>
+            <div class="form-group">
+                <label>Fichier:</label>
+                <input type="file" id="fichier-scan" accept=".pdf,.jpg,.png">
+            </div>
+            <div class="form-group">
+                <label>Notes:</label>
+                <textarea id="notes-scan" rows="2" placeholder="Informations complémentaires..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 20px;">
+                <button class="btn btn-success" onclick="enregistrerScan()">✅ Enregistrer le Scan</button>
+                <button class="btn" onclick="cacherModal('modal-document')">❌ Annuler</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    // VOTRE GRAND SCRIPT PRINCIPAL (avec la nouvelle fonction seConnecter)
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+<script>
+    emailjs.init("Kw7720KNyEfz0q99w");
+</script>
+</body>
+</html>
